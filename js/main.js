@@ -5,7 +5,7 @@ function getRandomNumber(min, max) {
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
-// Функция, возвращающая случайное число с плавающей точкой из переданного диапазона включительно
+// Функция, возвращающая случайное число с плавающей точкой из переданного диапазона включительно.
 function getRandomFractionalNumber(min, max, fract) {
   min = Math.ceil(min);
   max = Math.floor(max);
