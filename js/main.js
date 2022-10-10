@@ -11,7 +11,7 @@ const getRandomFractionalNumber = (min, max, fract) => {
   const lowerValue = Math.min(Math.abs(min), Math.abs(max));
   const greaterValue = Math.max(Math.abs(min), Math.abs(max));
   return !isNaN(min, max) && max !== 0 && min !== max ?
-    ((Math.random() * (greaterValue - lowerValue + 1)) + lowerValue).toFixed(fract) : NaN;
+    ((Math.random() * (greaterValue - lowerValue)) + lowerValue).toFixed(fract) : NaN;
 };
 // getRandomIntegerNumber(1, 9);
 // getRandomFractionalNumber(1.5, 3.5, 2);
@@ -20,10 +20,10 @@ const PICTURES = [
 ];
 const MIN_PRICE = 1000;
 const MAX_PRICE = 100000;
-const LAT_MIN = 35.65;
-const LAT_MAX = 35.70;
-const LNG_MIN = 139.70;
-const LNG_MAX = 139.80;
+const LAT_MIN = 35.65000;
+const LAT_MAX = 35.70000;
+const LNG_MIN = 139.70000;
+const LNG_MAX = 139.80000;
 const ARRAY_LENGTH = 10;
 const type = ['palace', 'flat', 'house', 'bungalow', 'hotel'];
 const checkin = ['12:00', '13:00', '14:00'];
@@ -36,12 +36,12 @@ const photos = ['https://assets.htmlacademy.ru/content/intensive/javascript-1/ke
 
 const createAuthor = () => {
   const randomPictureIndex = getRandomIntegerNumber(0, PICTURES.length - 1);
-  return randomPictureIndex >= 9 ? { avatar: `img/avatars/user${ PICTURES[randomPictureIndex] }.png` } : { avatar: 'img/avatars/user' + `0${ PICTURES[randomPictureIndex] }.png` };
+  return randomPictureIndex >= 9 ? { avatar: `img/avatars/user${ PICTURES[randomPictureIndex] }.png` } : { avatar: `img/avatars/user0${ PICTURES[randomPictureIndex] }.png` };
 };
 
 const createOffer = () => ({
   title: 'Заголовок',
-  address: '',
+  address: location.lat + location.lng,
   price: getRandomIntegerNumber(MIN_PRICE, MAX_PRICE),
   type: type[getRandomIntegerNumber(0, type.length - 1)],
   rooms: getRandomIntegerNumber(1, 10),
@@ -64,6 +64,4 @@ const createObject = () => ({
   location: createLocation(),
 });
 
-const similarObjects = Array.from({ length: ARRAY_LENGTH}, createObject);
-
-console.log(similarObjects);
+const similarObjects = Array.from({ length: ARRAY_LENGTH }, createObject);
