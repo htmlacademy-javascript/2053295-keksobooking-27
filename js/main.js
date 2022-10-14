@@ -57,4 +57,5 @@ const createObject = () => ({
   location: coordinates,
 });
 const similarObjects = () => Array.from({ length: ARRAY_LENGTH }, createObject);
+
 similarObjects();
