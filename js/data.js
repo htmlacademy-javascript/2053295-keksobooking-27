@@ -56,4 +56,3 @@ const similarObjects = () => Array.from({
 export {
   similarObjects
 };
-

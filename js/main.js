@@ -3,5 +3,3 @@ import {
 } from './data.js';
 
 similarObjects();
-
-// console.log(similarObjects());
