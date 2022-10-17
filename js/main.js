@@ -13,6 +13,7 @@ const getRandomFractionalNumber = (min, max, fract) => {
   return !isNaN(min, max) && max !== 0 && min !== max ?
     ((Math.random() * (greaterValue - lowerValue)) + lowerValue).toFixed(fract) : NaN;
 };
+
 const MIN_PRICE = 1000; //Минимальная цена
 const MAX_PRICE = 100000; //Максимальная цена
 const LAT_MIN = 35.65000; //Координаты. Минимальная широта
@@ -28,16 +29,19 @@ const photos = ['https://assets.htmlacademy.ru/content/intensive/javascript-1/ke
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg',
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg', //Фотографии
 ];
+
 let pictureIndex = 0; //Индекс аватарки
 const createLocation = () => ({
   lat: getRandomFractionalNumber(LAT_MIN, LAT_MAX, 5),
   lng: getRandomFractionalNumber(LNG_MIN, LNG_MAX, 5),
 });
+
 const coordinates = createLocation();
 const createAuthor = () => {
   pictureIndex += 1;
   return { avatar: `img/avatars/user${pictureIndex.toString().padStart(2, '0')}.png` };
 };
+
 const createOffer = () => ({
   title: 'Заголовок',
   address: [coordinates.lat, coordinates.lng].join('--'),
@@ -51,10 +55,13 @@ const createOffer = () => ({
   description: 'Какоето описание',
   photos: photos.slice(getRandomIntegerNumber(0, photos.length - 1)),
 });
+
 const createObject = () => ({
   author: createAuthor(),
   offer: createOffer(),
   location: coordinates,
 });
+
 const similarObjects = () => Array.from({ length: ARRAY_LENGTH }, createObject);
+
 similarObjects();
