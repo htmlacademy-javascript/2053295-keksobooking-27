@@ -2,6 +2,7 @@ import {
   getRandomIntegerNumber,
   getRandomFractionalNumber
 } from './util.js';
+
 import {
   MIN_PRICE,
   MAX_PRICE,
@@ -11,6 +12,7 @@ import {
   LNG_MAX,
   ARRAY_LENGTH,
 } from './constants.js';
+
 import {
   types,
   checkinTimes,

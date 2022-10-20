@@ -4,5 +4,5 @@ import {
 import {
 
 } from './similar-items.js';
+
 similarObjects();
-// console.log(similarObjects().length);

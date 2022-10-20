@@ -149,6 +149,7 @@ const creatAdCard = () => {
   getAvatar();
 
   const mapCanvas = document.querySelector('#map-canvas');
+
   mapCanvas.appendChild(fragment);
 };
 
