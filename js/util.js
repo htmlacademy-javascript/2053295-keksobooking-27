@@ -5,7 +5,6 @@ const getRandomIntegerNumber = (min, max) => {
   return !isNaN(min, max) && max !== 0 && min !== max ?
     Math.floor(Math.random() * (greaterValue - lowerValue + 1)) + lowerValue : NaN;
 };
-
 // Функция, возвращающая случайное число с плавающей точкой из переданного диапазона включительно.
 const getRandomFractionalNumber = (min, max, fract) => {
   const lowerValue = Math.min(Math.abs(min), Math.abs(max));
