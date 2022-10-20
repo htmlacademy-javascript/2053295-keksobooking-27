@@ -1,8 +1,9 @@
 import {
   similarObjects
 } from './data.js';
-import {
 
+import {
 } from './similar-items.js';
 similarObjects();
-// console.log(similarObjects().length);
+
+
