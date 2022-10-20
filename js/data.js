@@ -26,6 +26,7 @@ const createLocation = () => ({
   lng: getRandomFractionalNumber(LNG_MIN, LNG_MAX, 5),
 });
 
+
 const coordinates = createLocation();
 
 const createAuthor = () => ({
@@ -37,8 +38,10 @@ const createOffer = () => ({
   address: [coordinates.lat, coordinates.lng].join('--'),
   price: getRandomIntegerNumber(MIN_PRICE, MAX_PRICE),
   type: types[getRandomIntegerNumber(0, types.length - 1)],
+
   rooms: getRandomIntegerNumber(1, 5),
   guests: getRandomIntegerNumber(1, 10),
+
   checkin: checkinTimes[getRandomIntegerNumber(0, checkinTimes.length - 1)],
   checkout: checkoutTimes[getRandomIntegerNumber(0, checkoutTimes.length - 1)],
   features: features.slice(getRandomIntegerNumber(0, features.length - 1)),
@@ -61,3 +64,4 @@ export {
   createOffer,
   similarObjects,
 };
+
