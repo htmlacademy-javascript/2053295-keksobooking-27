@@ -1,16 +1,17 @@
 import {
-  createOffer,
+  offerList,
   createAuthor,
 } from './data.js';
 
-const creatAdCard = () => {
+
+const renderSimilarCards = () => {
 
   const fragment = document.createDocumentFragment(); // Фрагмент
   const templateFragment = document.querySelector('#card').content; // Шаблон
 
   const getTitle = () => { // Заголовок
     const title = templateFragment.querySelector('.popup__title');
-    title.textContent = createOffer().title;
+    title.textContent = offerList.title;
     if (title.textContent) {
       fragment.appendChild(title);
     }
@@ -18,7 +19,7 @@ const creatAdCard = () => {
 
   const determineCoordinates = () => { // Координаты
     const address = templateFragment.querySelector('.popup__text--address');
-    address.textContent = createOffer().address;
+    address.textContent = offerList.address;
     if (address.textContent) {
       fragment.appendChild(address);
     }
@@ -26,14 +27,14 @@ const creatAdCard = () => {
 
   const selectPrice = () => { // Цена за ночь
     const price = templateFragment.querySelector('.popup__text--price');
-    price.textContent = `${createOffer().price } ₽/ночь`;
+    price.textContent = `${offerList.price } ₽/ночь`;
     if (price.textContent) {
       fragment.appendChild(price);
     }
   };
 
   const selectHousingType = () => { //Тип жилья
-    const type = createOffer().type;
+    const type = offerList.type;
     if (type) {
       const housingType = document.createElement('h4');
       housingType.classList.add('popup__type');
@@ -56,8 +57,8 @@ const creatAdCard = () => {
 
   const selectNumberRooms = () => { // Количество комнат и гостей
     const capacity = templateFragment.querySelector('.popup__text--capacity');
-    const numberRooms = createOffer().rooms;
-    const numberGuests = createOffer().guests;
+    const numberRooms = offerList.rooms;
+    const numberGuests = offerList.guests;
     if (numberRooms && numberGuests) {
       let roomsWord;
       let guestsWord;
@@ -80,8 +81,8 @@ const creatAdCard = () => {
 
   const selectTimeStay = () => { // Время заезда и выезда
     const time = templateFragment.querySelector('.popup__text--time');
-    const checkin = createOffer().checkin;
-    const checkout = createOffer().checkout;
+    const checkin = offerList.checkin;
+    const checkout = offerList.checkout;
     if (!checkin && !checkout) {
       time.textContent = 'Заезд после --:-- , выезд до --:--';
     } else if (!checkout) {
@@ -110,7 +111,7 @@ const creatAdCard = () => {
 
   const addDescription = () => { // Описание
     const description = templateFragment.querySelector('.popup__description');
-    description.textContent = createOffer().description;
+    description.textContent = offerList.description;
     if (description.textContent) {
       fragment.appendChild(description);
     }
@@ -143,15 +144,15 @@ const creatAdCard = () => {
   selectHousingType();
   selectNumberRooms();
   selectTimeStay();
-  selectFeatures(createOffer().features);
+  selectFeatures(offerList.features);
   addDescription();
-  addPhotos(createOffer().photos);
+  addPhotos(offerList.photos);
   getAvatar();
 
   const mapCanvas = document.querySelector('#map-canvas');
   mapCanvas.appendChild(fragment);
 };
 
-creatAdCard();
-
-export {};
+export {
+renderSimilarCards
+};

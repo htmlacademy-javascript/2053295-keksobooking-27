@@ -1,7 +1,8 @@
 import {
-  similarObjects
+  getSimilarObjectsData,
 } from './data.js';
 import {
+  renderSimilarCards,
 } from './similar-items.js';
 
-similarObjects();
+renderSimilarCards(getSimilarObjectsData());

@@ -28,8 +28,10 @@ const createLocation = () => ({
 
 const coordinates = createLocation();
 
+let pictureIndex = 0;
+pictureIndex += 1;
 const createAuthor = () => ({
-  avatar: `img/avatars/user${getRandomIntegerNumber(1, 10).toString().padStart(2, '0')}.png`
+  avatar: `img/avatars/user${pictureIndex.toString().padStart(2, '0')}.png`
 });
 
 const createOffer = () => ({
@@ -46,19 +48,20 @@ const createOffer = () => ({
   photos: photos.slice(getRandomIntegerNumber(0, photos.length - 1)),
 });
 
+const offerList = createOffer();
+
 const createObject = () => ({
   author: createAuthor(),
-  offer: createOffer(),
+  offer: offerList,
   location: coordinates,
 });
 
-const similarObjects = () => Array.from({
+const getSimilarObjectsData = () => Array.from({
   length: ARRAY_LENGTH
 }, createObject);
 
 export {
   createAuthor,
-  createOffer,
-  similarObjects,
+  offerList,
+  getSimilarObjectsData,
 };
-
