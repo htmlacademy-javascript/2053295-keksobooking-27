@@ -21,47 +21,49 @@ import {
   photos
 } from './variables.js';
 
+const createAuthor = (index) => ({
+  avatar: `img/avatars/user${index.toString().padStart(2, '0')}.png`
+});
+
+const createOffer = (index, currentLocation) => {
+
+  return {
+    title: `Заголовок - ${index}`,
+    address: [currentLocation.lat, currentLocation.lng].join('--'),
+    price: getRandomIntegerNumber(MIN_PRICE, MAX_PRICE),
+    type: types[getRandomIntegerNumber(0, types.length - 1)],
+    rooms: getRandomIntegerNumber(1, 5),
+    guests: getRandomIntegerNumber(1, 10),
+    checkin: checkinTimes[getRandomIntegerNumber(0, checkinTimes.length - 1)],
+    checkout: checkoutTimes[getRandomIntegerNumber(0, checkoutTimes.length - 1)],
+    features: features.slice(getRandomIntegerNumber(0, features.length - 1)),
+    description: `Описание - ${index}`,
+    photos: photos.slice(getRandomIntegerNumber(0, photos.length - 1)),
+  }
+};
+
 const createLocation = () => ({
   lat: getRandomFractionalNumber(LAT_MIN, LAT_MAX, 5),
   lng: getRandomFractionalNumber(LNG_MIN, LNG_MAX, 5),
 });
 
-const coordinates = createLocation();
+const createObject = (index) => {
+  const currentLocation = createLocation();
 
-let pictureIndex = 0;
-pictureIndex += 1;
-const createAuthor = () => ({
-  avatar: `img/avatars/user${pictureIndex.toString().padStart(2, '0')}.png`
-});
-
-const createOffer = () => ({
-  title: 'Заголовок',
-  address: [coordinates.lat, coordinates.lng].join('--'),
-  price: getRandomIntegerNumber(MIN_PRICE, MAX_PRICE),
-  type: types[getRandomIntegerNumber(0, types.length - 1)],
-  rooms: getRandomIntegerNumber(1, 5),
-  guests: getRandomIntegerNumber(1, 10),
-  checkin: checkinTimes[getRandomIntegerNumber(0, checkinTimes.length - 1)],
-  checkout: checkoutTimes[getRandomIntegerNumber(0, checkoutTimes.length - 1)],
-  features: features.slice(getRandomIntegerNumber(0, features.length - 1)),
-  description: 'Какоето описание',
-  photos: photos.slice(getRandomIntegerNumber(0, photos.length - 1)),
-});
-
-const offerList = createOffer();
-
-const createObject = () => ({
-  author: createAuthor(),
-  offer: offerList,
-  location: coordinates,
-});
+  return {
+    author: createAuthor(index),
+    offer: createOffer(index, currentLocation),
+    location: currentLocation,
+  };
+};
 
 const getSimilarObjectsData = () => Array.from({
   length: ARRAY_LENGTH
-}, createObject);
+}, (_, i) => createObject(i + 1));
+
+
 
 export {
-  createAuthor,
-  offerList,
+  // createOffer,
   getSimilarObjectsData,
 };
