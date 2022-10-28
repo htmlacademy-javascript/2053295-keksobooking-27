@@ -1,45 +1,53 @@
-import {
-getSimilarObjectsData,
-createOffer,
+const renderSimilarCards = (card, index) => {
 
-} from './data.js';
-
-
-const renderSimilarCards = () => {
+  index = card.findIndex((item) => item.offer);
 
   const fragment = document.createDocumentFragment(); // Фрагмент
   const templateFragment = document.querySelector('#card').content; // Шаблон
 
   const getTitle = () => { // Заголовок
     const title = templateFragment.querySelector('.popup__title');
-    title.textContent = createOffer().title;
-    if (title.textContent) {
+    title.textContent = card[index].offer.title;
+
+    if (title.textContent && title.textContent.length) {
       fragment.appendChild(title);
+    } else {
+      fragment.remove();
     }
   };
 
   const determineCoordinates = () => { // Координаты
     const address = templateFragment.querySelector('.popup__text--address');
-    address.textContent = createOffer().address;
-    if (address.textContent) {
+
+    address.textContent = card[index].offer.address;
+
+    if (address.textContent && address.textContent.length) {
       fragment.appendChild(address);
+    } else {
+      fragment.remove();
     }
   };
 
   const selectPrice = () => { // Цена за ночь
     const price = templateFragment.querySelector('.popup__text--price');
-    price.textContent = `${createOffer().price } ₽/ночь`;
+
+    price.textContent = `${card[index].offer.price } ₽/ночь`;
+
     if (price.textContent) {
       fragment.appendChild(price);
+    } else {
+      fragment.remove();
     }
   };
 
   const selectHousingType = () => { //Тип жилья
-    const type = createOffer().type;
+    const type = card[index].offer.type;
+
     if (type) {
       const housingType = document.createElement('h4');
       housingType.classList.add('popup__type');
       housingType.textContent = type;
+
       const HOUSE_TYPE = {
         palace: 'Дворец',
         flat: 'Квартира',
@@ -50,6 +58,7 @@ const renderSimilarCards = () => {
       const convertHouseType = () => {
         const russianTypeValue = HOUSE_TYPE[type];
         housingType.textContent = russianTypeValue;
+
         fragment.appendChild(housingType);
       };
       convertHouseType();
@@ -58,8 +67,8 @@ const renderSimilarCards = () => {
 
   const selectNumberRooms = () => { // Количество комнат и гостей
     const capacity = templateFragment.querySelector('.popup__text--capacity');
-    const numberRooms = createOffer().rooms;
-    const numberGuests = createOffer().guests;
+    const numberRooms = card[index].offer.rooms;
+    const numberGuests = card[index].offer.guests;
     if (numberRooms && numberGuests) {
       let roomsWord;
       let guestsWord;
@@ -76,14 +85,15 @@ const renderSimilarCards = () => {
         guestsWord = 'гостей';
       }
       capacity.textContent = `${numberRooms } ${ roomsWord } для ${ numberGuests } ${ guestsWord}`;
+
       fragment.appendChild(capacity);
     }
   };
 
   const selectTimeStay = () => { // Время заезда и выезда
     const time = templateFragment.querySelector('.popup__text--time');
-    const checkin = createOffer().checkin;
-    const checkout = createOffer().checkout;
+    const checkin = card[index].offer.checkin;
+    const checkout = card[index].offer.checkout;
     if (!checkin && !checkout) {
       time.textContent = 'Заезд после --:-- , выезд до --:--';
     } else if (!checkout) {
@@ -93,6 +103,7 @@ const renderSimilarCards = () => {
     } else {
       time.textContent = `Заезд после ${ checkin } , выезд до ${ checkout}`;
     }
+
     fragment.appendChild(time);
   };
 
@@ -100,20 +111,24 @@ const renderSimilarCards = () => {
     if (!features.length) {
       return;
     }
+
     const featuresList = document.createElement('ul');
     featuresList.classList.add('popup__features');
     features.forEach((feature) => {
       const featuresListItem = document.createElement('li');
       featuresListItem.classList.add('popup__feature', `popup__feature--${ feature}`);
       featuresList.appendChild(featuresListItem);
+
     });
+
     fragment.appendChild(featuresList);
   };
 
   const addDescription = () => { // Описание
     const description = templateFragment.querySelector('.popup__description');
-    description.textContent = createOffer().description;
+    description.textContent = card[index].offer.description;
     if (description.textContent) {
+
       fragment.appendChild(description);
     }
   };
@@ -136,7 +151,7 @@ const renderSimilarCards = () => {
 
   const getAvatar = () => {
     const avatar = document.querySelector('.ad-form-header__preview>img');
-    avatar.src = createAuthor().avatar;
+    avatar.src = card[index].author.avatar;
   };
 
   getTitle();
@@ -145,10 +160,10 @@ const renderSimilarCards = () => {
   selectHousingType();
   selectNumberRooms();
   selectTimeStay();
-  selectFeatures(createOffer().features);
+  selectFeatures(card[index].offer.features);
   addDescription();
-  addPhotos(createOffer().photos);
-  getAvatar();
+  addPhotos(card[index].offer.photos);
+  getAvatar(card[index].author.avatar);
 
   const mapCanvas = document.querySelector('#map-canvas');
   mapCanvas.appendChild(fragment);
