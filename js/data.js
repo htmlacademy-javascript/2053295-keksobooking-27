@@ -60,4 +60,6 @@ const getSimilarObjectsData = () => Array.from({
 
 export {
   getSimilarObjectsData,
+ createAuthor,
+
 };
