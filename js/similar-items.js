@@ -1,20 +1,33 @@
 import {
-  HOUSE_TYPE
+  HouseType
 } from './constants.js';
 
 const renderSimilarCards = (cards) => {
   const fragment = document.createDocumentFragment();
-  const templateFragment = document.querySelector('#card').content.querySelector('.popup');
   const mapCanvas = document.querySelector('#map-canvas');
-  const cardItem = templateFragment.cloneNode(true);
-  let featuresList = cardItem.querySelector('.popup__features').querySelectorAll('.popup__feature');
-  const photoContainer = cardItem.querySelector('.popup__photos');
 
   cards.forEach((item) => {
+    const templateFragment = document.querySelector('#card').content.querySelector('.popup');
+    const cardItem = templateFragment.cloneNode(true);
+    // const featuresContainer = cardItem.querySelector('.popup__features');
+    const featuresList = cardItem.querySelector('.popup__features').querySelectorAll('.popup__feature');
+    const photoContainer = cardItem.querySelector('.popup__photos');
+    const cardItemAvatar = cardItem.querySelector('.popup__avatar');
+    const cardItemTitle = cardItem.querySelector('.popup__title');
+    const cardItemAddress = cardItem.querySelector('.popup__text--address');
+    const cardItemPrice = cardItem.querySelector('.popup__text--price');
+    const cardItemType = cardItem.querySelector('.popup__type');
+    const cardItemCapacity = cardItem.querySelector('.popup__text--capacity');
+    const cardItemTime = cardItem.querySelector('.popup__text--time');
+    const cardItemDescription = cardItem.querySelector('.popup__description');
+
     const { avatar, } = item.author;
+    const { lat, lng, } = item.location;
     const { address, checkin, checkout, description, features, guests, photos, price, rooms, title, type, } = item.offer;
+
     let roomsWord;
     let guestsWord;
+
     if (rooms === 1) {
       roomsWord = 'комната';
     } else if (rooms >= 5) {
@@ -29,89 +42,76 @@ const renderSimilarCards = (cards) => {
     }
 
     if (!avatar) {
-      avatar.remove();
+      cardItemAvatar.remove();
     } else {
-      cardItem.querySelector('.popup__avatar').src = avatar;
+      cardItemAvatar.src = avatar;
     }
 
     if (!title) {
-      title.remove();
+      cardItemTitle.remove();
     } else {
-      cardItem.querySelector('.popup__title').textContent = title;
+      cardItemTitle.textContent = title;
     }
 
-    if (!address) {
-      address.remove();
+    if (!lat || !lng) {
+      cardItemAddress.remove();
     } else {
-      cardItem.querySelector('.popup__text--address').textContent = address;
+      cardItemAddress.textContent = address;
     }
 
     if (!price) {
-      price.remove();
+      cardItemPrice.remove();
     } else {
-      cardItem.querySelector('.popup__text--price').textContent = price;
+      cardItemPrice.textContent = `${price} ₽/ночь`;
     }
 
     if (!type) {
-      type.remove();
+      cardItemType.remove();
     } else {
-      cardItem.querySelector('.popup__type').textContent = HOUSE_TYPE[type];
+      cardItemType.textContent = HouseType[type];
     }
 
     if (!rooms || !guests) {
-      price.remove();
+      cardItemCapacity.remove();
     } else {
-      cardItem.querySelector('.popup__text--capacity').textContent = `${rooms } ${ roomsWord } для ${ guests } ${ guestsWord}`;
+      cardItemCapacity.textContent = `${rooms} ${roomsWord} для ${guests} ${guestsWord}`;
     }
 
     if (!checkin && !checkout) {
-      cardItem.querySelector('.popup__text--time').textContent = 'Заезд после --:-- , выезд до --:--';
+      cardItemTime.textContent = 'Заезд после --:-- , выезд до --:--';
     } else if (!checkin) {
-      cardItem.querySelector('.popup__text--time').textContent = `Выезд до ${ checkout}`;
+      cardItemTime.textContent = `Выезд до ${checkout}`;
     } else if (!checkout) {
-      cardItem.querySelector('.popup__text--time').textContent = `Заезд после ${ checkin }`;
+      cardItemTime.textContent = `Заезд после ${checkin}`;
     } else {
-      cardItem.querySelector('.popup__text--time').textContent = `Заезд после ${ checkin } , выезд до ${ checkout}`;
+      cardItemTime.textContent = `Заезд после ${checkin} , выезд до ${checkout}`;
     }
 
     if (!description) {
-      description.remove();
+      cardItemDescription.remove();
     } else {
-      cardItem.querySelector('.popup__description').textContent = description;
+      cardItemDescription.textContent = description;
     }
 
-    for (let i = 0; i < featuresList.length; i++) {
-      for (let j = 0; j < features.length; j++) {
-        if (featuresList[i].classList.contains(`popup__feature--${features[j]}`)) {
-          featuresList = document.createElement('li');
-          featuresList.classList.add('popup__feature', `popup__feature--${features[j]}`);
-          break;
-        } else {
-          featuresList[i].remove();
-        }
+    featuresList.forEach((featuresItem) => {
+      const receivedFeatures = (featuresItems) =>
+        featuresItem.classList.contains(`popup__feature--${featuresItems}`);
+      if (!features.some(receivedFeatures)) {
+        featuresItem.remove();
       }
-    }
+    });
 
-    if (!photos) {
-      photoContainer.remove();
-    } else {
-      if (photos.length > 1) {
-        photoContainer.querySelector('img').remove();
-        for (let i = 0; i < photos.length; i++) {
-          const photoItem = document.createElement('img');
-          photoItem.classList.add('popup__photo');
-          photoItem.src = photos[i];
-          photoItem.width = '45';
-          photoItem.height = '40';
-          photoItem.alt = `Фотография жилья  ${i + 1}`;
-          photoContainer.appendChild(photoItem);
-        }
-      } else {
-        cardItem.querySelector('.popup__photo').src = photos[0];
+    photos.forEach((photo) => {
+      const templatePhotos = document.querySelector('#housing-photos').content.querySelector('.popup__photo');
+      if (photo) {
+        const photoItem = templatePhotos.cloneNode(true);
+        photoItem.src = photo;
+        photoContainer.appendChild(photoItem);
       }
-    }
+    });
     fragment.appendChild(cardItem);
   });
+
   mapCanvas.appendChild(fragment);
 };
 
