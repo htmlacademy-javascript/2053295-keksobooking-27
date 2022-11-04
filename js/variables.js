@@ -12,5 +12,5 @@ export {
   checkinTimes,
   checkoutTimes,
   features,
-  photos
+  photos,
 };
