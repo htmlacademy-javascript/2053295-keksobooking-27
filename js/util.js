@@ -16,4 +16,4 @@ const getRandomFractionalNumber = (min, max, fract) => {
 export {
   getRandomIntegerNumber,
   getRandomFractionalNumber,
-};
+

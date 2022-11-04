@@ -5,6 +5,7 @@ import {
 const renderSimilarCards = (cards) => {
   const fragment = document.createDocumentFragment();
   const mapCanvas = document.querySelector('#map-canvas');
+
   const templateFragment = document.querySelector('#card').content.querySelector('.popup');
     const templatePhotos = document.querySelector('#housing-photos').content.querySelector('.popup__photo');
 
@@ -20,6 +21,7 @@ const renderSimilarCards = (cards) => {
     const cardItemCapacity = cardItem.querySelector('.popup__text--capacity');
     const cardItemTime = cardItem.querySelector('.popup__text--time');
     const cardItemDescription = cardItem.querySelector('.popup__description');
+
     const { avatar, } = item.author;
     const { lat, lng, } = item.location;
     const { address, checkin, checkout, description, features, guests, photos, price, rooms, title, type, } = item.offer;
@@ -101,6 +103,7 @@ const renderSimilarCards = (cards) => {
     });
 
     photos.forEach((photo) => {
+
       if (photo) {
         const photoItem = templatePhotos.cloneNode(true);
         photoItem.src = photo;
