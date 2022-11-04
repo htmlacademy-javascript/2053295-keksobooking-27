@@ -5,11 +5,11 @@ import {
 const renderSimilarCards = (cards) => {
   const fragment = document.createDocumentFragment();
   const mapCanvas = document.querySelector('#map-canvas');
+  const templateFragment = document.querySelector('#card').content.querySelector('.popup');
+  const templatePhotos = document.querySelector('#housing-photos').content.querySelector('.popup__photo');
 
   cards.forEach((item) => {
-    const templateFragment = document.querySelector('#card').content.querySelector('.popup');
     const cardItem = templateFragment.cloneNode(true);
-    // const featuresContainer = cardItem.querySelector('.popup__features');
     const featuresList = cardItem.querySelector('.popup__features').querySelectorAll('.popup__feature');
     const photoContainer = cardItem.querySelector('.popup__photos');
     const cardItemAvatar = cardItem.querySelector('.popup__avatar');
@@ -102,7 +102,7 @@ const renderSimilarCards = (cards) => {
     });
 
     photos.forEach((photo) => {
-      const templatePhotos = document.querySelector('#housing-photos').content.querySelector('.popup__photo');
+
       if (photo) {
         const photoItem = templatePhotos.cloneNode(true);
         photoItem.src = photo;
