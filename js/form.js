@@ -4,7 +4,7 @@ const mapFilters = document.querySelector('.map__filters');
 const titleField = adForm.querySelector('#title');
 const priceField = adForm.querySelector('#price');
 const typeField = adForm.querySelector('#type');
-const minPriceValue = 0;
+let minPriceValue;
 const priceValue = {
   min: minPriceValue,
 };
@@ -39,30 +39,29 @@ const pristine = new Pristine(adForm, {
 const validateTitle = (value) => value > titleValue.min && value <= titleValue.max;
 pristine.addValidator(titleField, validateTitle, );
 // Цена за ночь:
-const validatePrice = (value) => value > priceValue.min && value <= priceValue.max;
+const validatePrice = (value) => value > priceValue.min;
 typeField.addEventListener('change', () => {
-  let maxPriceValue;
   let pricePlaceholder = priceField.placeholder;
   const getPriceValue = () => {
     if (typeField.value === 'bungalow') {
-      maxPriceValue = 0;
+      minPriceValue = 0;
       pricePlaceholder = 0;
     } else if (typeField.value === 'flat') {
-      maxPriceValue = 1000;
+      minPriceValue = 1000;
       pricePlaceholder = 1000;
     } else if (typeField.value === 'hotel') {
-      maxPriceValue = 3000;
+      minPriceValue = 3000;
       pricePlaceholder = 3000;
     } else if (typeField.value === 'house') {
-      maxPriceValue = 5000;
+      minPriceValue = 5000;
       pricePlaceholder = 5000;
     } else if (typeField.value === 'palace') {
-      maxPriceValue = 10000;
+      minPriceValue = 10000;
       pricePlaceholder = 10000;
     }
     priceField.placeholder = pricePlaceholder;
-    priceValue.max = maxPriceValue;
-    return priceValue.max;
+    priceValue.min = minPriceValue;
+    return priceValue.min;
   };
   getPriceValue();
 });
@@ -70,17 +69,12 @@ typeField.addEventListener('change', () => {
 function getPriceErrorMessage(value) {
   if (value < priceValue.min) {
     return `Минимальное значение ${priceValue.min}`;
-  } else if (value > priceValue.max) {
-    return `Максимальное значение ${priceValue.max}`;
   }
 }
 pristine.addValidator(priceField, validatePrice, getPriceErrorMessage);
-
 const roomField = document.querySelector('#room_number');
 const guestField = document.querySelector('#capacity');
-
 roomField.addEventListener('change', () => {
-
   const getGuestFieldValue = () => {
     for (let i = 0; i < guestField.length; i++) {
       guestField[i].style.display = 'inline-block';
@@ -122,7 +116,6 @@ adForm.addEventListener('submit', (evt) => {
 //     console.log('Форма невалидна');
 //   }
 // });
-
 
 export {
   makeInactive,
