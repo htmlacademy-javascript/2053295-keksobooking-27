@@ -12,6 +12,8 @@ const priceField = adForm.querySelector('#price');
 const typeField = adForm.querySelector('#type');
 const roomField = document.querySelector('#room_number');
 const guestField = document.querySelector('#capacity');
+const timeInField = document.querySelector('#timein');
+const timeOutField = document.querySelector('#timeout');
 let minPriceValue = HouseTypeMinPrice[typeField.value];
 
 const getPriceValue = (evt) => {
@@ -41,12 +43,23 @@ const getGuestValue = () => {
   });
 };
 
+const setTimeOutFieldValue = () => {
+  timeOutField[timeInField.selectedIndex].selected = true;
+};
+
+const setTimeInFieldValue = () => {
+  timeInField[timeOutField.selectedIndex].selected = true;
+};
+
 // Перевод формы в не активное состояние
 const makeInactive = () => {
   adForm.classList.add('ad-form--disabled');
   mapFilters.classList.add('map__filters--disabled');
   typeField.removeEventListener('change', getPriceValue);
   typeField.removeEventListener('change', getGuestValue);
+  timeInField.removeEventListener('change', setTimeOutFieldValue);
+  timeOutField.removeEventListener('change', setTimeInFieldValue);
+
   adFormElement.forEach((fieldset) => {
     fieldset.disabled = true;
   });
@@ -86,6 +99,8 @@ const makeActive = () => {
 
   typeField.addEventListener('change', getPriceValue);
   roomField.addEventListener('change', getGuestValue);
+  timeInField.addEventListener('change', setTimeOutFieldValue);
+  timeOutField.addEventListener('change', setTimeInFieldValue);
 
   adForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
