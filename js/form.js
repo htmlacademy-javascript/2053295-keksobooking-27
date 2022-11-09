@@ -1,111 +1,97 @@
+import {
+  titleValue,
+} from './variables.js';
+import {
+  HouseTypeMinPrice,
+} from './constants.js';
 const adForm = document.querySelector('.ad-form');
 const adFormElement = document.querySelectorAll('.ad-form__element');
 const mapFilters = document.querySelector('.map__filters');
 const titleField = adForm.querySelector('#title');
 const priceField = adForm.querySelector('#price');
 const typeField = adForm.querySelector('#type');
-let minPriceValue;
-const priceValue = {
-  min: minPriceValue,
+const roomField = document.querySelector('#room_number');
+const guestField = document.querySelector('#capacity');
+let minPriceValue = HouseTypeMinPrice[typeField.value];
+
+const getPriceValue = (evt) => {
+  priceField.placeholder = HouseTypeMinPrice[evt.target.value];
+  minPriceValue = HouseTypeMinPrice[evt.target.value];
 };
-const titleValue = {
-  max: 100,
-  min: 30,
+
+const getGuestValue = () => {
+  for (let i = 0; i < guestField.length; i++) {
+    guestField[i].style.display = 'inline-block';
+  }
+
+  let HiddenGuestFields;
+  if (roomField.selectedIndex === 0) { // 1 КОМНАТА
+    guestField[2].selected = true;
+    HiddenGuestFields = [0, 1, 3];
+  } else if (roomField.selectedIndex === 1) { // 2 КОМНАТЫ
+    HiddenGuestFields = [0, 3];
+  } else if (roomField.selectedIndex === 2) { // 3 КОМНАТЫ
+    HiddenGuestFields = [3];
+  } else if (roomField.selectedIndex === 3) { // 100 КОМНАТ
+    guestField[roomField.selectedIndex].selected = true;
+    HiddenGuestFields = [0, 1, 2];
+  }
+  HiddenGuestFields.map((i) => {
+    guestField[i].style.display = 'none';
+  });
 };
+
 // Перевод формы в не активное состояние
 const makeInactive = () => {
   adForm.classList.add('ad-form--disabled');
   mapFilters.classList.add('map__filters--disabled');
+  typeField.removeEventListener('change', getPriceValue);
+  typeField.removeEventListener('change', getGuestValue);
   adFormElement.forEach((fieldset) => {
     fieldset.disabled = true;
   });
 };
-// Перевод формы в не активное состояние
+
+// Перевод формы в активное состояние
 const makeActive = () => {
   adForm.classList.remove('ad-form--disabled');
   mapFilters.classList.remove('map__filters--disabled');
   adFormElement.forEach((fieldset) => {
     fieldset.disabled = false;
   });
+
+  const pristine = new Pristine(adForm, {
+    classTo: 'ad-form__element',
+    errorClass: 'ad-form__element--invalid',
+    successClass: 'ad-form__element--valid',
+    errorTextParent: 'ad-form__element',
+    errorTextTag: 'span',
+    errorTextClass: 'form__error'
+  });
+
+  const validateTitle = (value) => value > titleValue.min && value <= titleValue.max;
+  pristine.addValidator(titleField, validateTitle, );
+
+  // Цена за ночь:
+
+  const validatePrice = (value) => value > minPriceValue;
+
+  const getPriceErrorMessage = (value) => {
+    if (value < minPriceValue) {
+      return `Минимальное значение ${minPriceValue}`;
+    }
+  };
+
+  pristine.addValidator(priceField, validatePrice, getPriceErrorMessage);
+
+  typeField.addEventListener('change', getPriceValue);
+  roomField.addEventListener('change', getGuestValue);
+
+  adForm.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    pristine.validate();
+  });
 };
-const pristine = new Pristine(adForm, {
-  classTo: 'ad-form__element',
-  errorClass: 'ad-form__element--invalid',
-  successClass: 'ad-form__element--valid',
-  errorTextParent: 'ad-form__element',
-  errorTextTag: 'span',
-  errorTextClass: 'form__error'
-});
-const validateTitle = (value) => value > titleValue.min && value <= titleValue.max;
-pristine.addValidator(titleField, validateTitle, );
-// Цена за ночь:
-const validatePrice = (value) => value > priceValue.min;
-typeField.addEventListener('change', () => {
-  let pricePlaceholder = priceField.placeholder;
-  const getPriceValue = () => {
-    if (typeField.value === 'bungalow') {
-      minPriceValue = 0;
-      pricePlaceholder = 0;
-    } else if (typeField.value === 'flat') {
-      minPriceValue = 1000;
-      pricePlaceholder = 1000;
-    } else if (typeField.value === 'hotel') {
-      minPriceValue = 3000;
-      pricePlaceholder = 3000;
-    } else if (typeField.value === 'house') {
-      minPriceValue = 5000;
-      pricePlaceholder = 5000;
-    } else if (typeField.value === 'palace') {
-      minPriceValue = 10000;
-      pricePlaceholder = 10000;
-    }
-    priceField.placeholder = pricePlaceholder;
-    priceValue.min = minPriceValue;
-    return priceValue.min;
-  };
-  getPriceValue();
-});
-
-function getPriceErrorMessage(value) {
-  if (value < priceValue.min) {
-    return `Минимальное значение ${priceValue.min}`;
-  }
-}
-pristine.addValidator(priceField, validatePrice, getPriceErrorMessage);
-const roomField = document.querySelector('#room_number');
-const guestField = document.querySelector('#capacity');
-roomField.addEventListener('change', () => {
-  const getGuestFieldValue = () => {
-    for (let i = 0; i < guestField.length; i++) {
-      guestField[i].style.display = 'inline-block';
-    }
-    if (roomField.value === '1') {
-      guestField[2].selected = true;
-      guestField[1].style.display = 'none';
-      guestField[0].style.display = 'none';
-      guestField[3].style.display = 'none';
-    } else if (roomField.value === '2') {
-      guestField[1].selected = true;
-      guestField[0].style.display = 'none';
-      guestField[3].style.display = 'none';
-    } else if (roomField.value === '3') {
-      guestField[0].selected = true;
-      guestField[3].style.display = 'none';
-    } else if (roomField.value === '100') {
-      guestField[3].selected = true;
-      guestField[0].style.display = 'none';
-      guestField[1].style.display = 'none';
-      guestField[2].style.display = 'none';
-    }
-  };
-  getGuestFieldValue();
-});
-
-adForm.addEventListener('submit', (evt) => {
-  evt.preventDefault();
-  pristine.validate();
-});
-
 
 // adForm.addEventListener('submit', (evt) => {
 //   evt.preventDefault();

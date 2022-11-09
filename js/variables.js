@@ -6,6 +6,10 @@ const photos = ['https://assets.htmlacademy.ru/content/intensive/javascript-1/ke
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg',
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg', //Фотографии
 ];
+const titleValue = {
+  max: 100,
+  min: 30,
+};
 
 export {
   types,
@@ -13,4 +17,5 @@ export {
   checkoutTimes,
   features,
   photos,
+  titleValue,
 };

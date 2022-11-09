@@ -12,6 +12,13 @@ const HouseType = { //Русские значения видов жилья
   bungalow: 'Бунгало',
   hotel: 'Отель',
 };
+const HouseTypeMinPrice = { //Минимальные значения стоимости жилья
+  palace: 10000,
+  flat: 1000,
+  house: 5000,
+  bungalow: 0,
+  hotel: 3000,
+};
 
 export {
   MIN_PRICE,
@@ -22,4 +29,5 @@ export {
   LNG_MAX,
   ARRAY_LENGTH,
   HouseType,
+  HouseTypeMinPrice,
 };
