@@ -22,9 +22,9 @@ const HouseTypeMinPrice = { //Минимальные значения стоим
 };
 const NumberRooms = {
   forOneRoom: [0, 1, 3],
-  forTwoRoom: [0, 1, 3],
-  forThreeRoom: [0, 1, 3],
-  forHundredRoom: [0, 1, 3],
+  forTwoRoom: [0, 3],
+  forThreeRoom: [3],
+  forHundredRoom: [0, 1, 2],
 };
 
 export {

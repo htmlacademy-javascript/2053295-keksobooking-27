@@ -12,7 +12,7 @@ const roomField = document.querySelector('#room_number');
 const guestField = document.querySelector('#capacity');
 const timeInField = document.querySelector('#timein');
 const timeOutField = document.querySelector('#timeout');
-const submitButton = document.querySelector('.ad-form__element--submit');
+const submitButton = document.querySelector('.ad-form__submit');
 let minPriceValue = HouseTypeMinPrice[typeField.value];
 
 const pristine = new Pristine(adForm, {
