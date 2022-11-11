@@ -27,6 +27,7 @@ const NumberRooms = {
   forHundredRoom: [0, 1, 2],
 };
 
+
 export {
   MIN_PRICE,
   MAX_PRICE,
@@ -38,4 +39,5 @@ export {
   HouseType,
   HouseTypeMinPrice,
   NumberRooms,
+
 };
