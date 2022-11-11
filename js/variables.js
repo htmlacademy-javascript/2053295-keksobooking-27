@@ -7,12 +7,14 @@ const photos = ['https://assets.htmlacademy.ru/content/intensive/javascript-1/ke
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg', //Фотографии
 ];
 
+
 export {
   types,
   checkinTimes,
   checkoutTimes,
   features,
   photos,
+
 };
 
 
