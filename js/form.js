@@ -38,12 +38,14 @@ const onFormSubmit = (evt) => {
   if (isValid) {
     adForm.submit();
   }
+
 };
 const validatePrice = (value) => value >= minPriceValue;
 
 const getPriceErrorMessage = () => `Минимальное значение ${minPriceValue}`;
 
 pristine.addValidator(priceField, validatePrice, getPriceErrorMessage);
+
 
 const onRoomFieldChange = () => {
 
@@ -104,6 +106,7 @@ const makeInactive = () => {
   timeInField.removeEventListener('change', onTimeInFieldChange);
   timeOutField.removeEventListener('change', onTimeOutFieldChange);
   adForm.removeEventListener('submit', onFormSubmit);
+
 };
 
 // Перевод формы в активное состояние
