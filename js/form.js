@@ -30,12 +30,13 @@ const onTypeFieldChange = (evt) => {
 };
 
 const onFormSubmit = (evt) => {
+
   evt.preventDefault();
+
   const isValid = pristine.validate();
+
   if (isValid) {
-    console.log('Можно отправлять');
-  } else {
-    console.log('Форма невалидна');
+    adForm.submit();
   }
 };
 const validatePrice = (value) => value >= minPriceValue;
