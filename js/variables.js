@@ -13,6 +13,5 @@ export {
   checkoutTimes,
   features,
   photos,
+
 };
-
-

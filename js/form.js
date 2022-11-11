@@ -1,5 +1,6 @@
 import {
   HouseTypeMinPrice,
+  NumberRooms,
 } from './constants.js';
 
 const adForm = document.querySelector('.ad-form');
@@ -64,22 +65,21 @@ const onRoomFieldChange = () => {
   if (roomField.selectedIndex === 0) { // 1 КОМНАТА
     selectGuestFieldValue();
     guestField[2].selected = true;
-    HiddenGuestFields = [0, 1, 3];
+    HiddenGuestFields = NumberRooms.forOneRoom;
   } else if (roomField.selectedIndex === 1) { // 2 КОМНАТЫ
     selectGuestFieldValue();
-    HiddenGuestFields = [0, 3];
+    HiddenGuestFields = NumberRooms.forTwoRoom;
   } else if (roomField.selectedIndex === 2) { // 3 КОМНАТЫ
     selectGuestFieldValue();
-    HiddenGuestFields = [3];
+    HiddenGuestFields = NumberRooms.forThreeRoom;
   } else if (roomField.selectedIndex === 3) { // 100 КОМНАТ
     guestField[roomField.selectedIndex].selected = true;
-    HiddenGuestFields = [0, 1, 2];
+    HiddenGuestFields = NumberRooms.forHundredRoom;
   }
 
   HiddenGuestFields.map((i) => {
     guestField[i].style.display = 'none';
   });
-
 };
 
 const onTimeInFieldChange = () => {
@@ -114,7 +114,9 @@ const makeActive = () => {
   adFormElement.forEach((fieldset) => {
     fieldset.disabled = false;
   });
+
   onRoomFieldChange();
+
   typeField.addEventListener('change', onTypeFieldChange);
   roomField.addEventListener('change', onRoomFieldChange);
   timeInField.addEventListener('change', onTimeInFieldChange);
