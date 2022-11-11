@@ -62,6 +62,7 @@ const onRoomFieldChange = () => {
   }
 
   let HiddenGuestFields;
+
   if (roomField.selectedIndex === 0) { // 1 КОМНАТА
     selectGuestFieldValue();
     guestField[2].selected = true;
