@@ -121,7 +121,6 @@ const makeActive = () => {
   submitButton.addEventListener('submit', onSubmitButtonPush);
 };
 
-
 export {
   makeInactive,
   makeActive,

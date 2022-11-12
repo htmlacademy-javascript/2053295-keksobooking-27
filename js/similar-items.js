@@ -4,7 +4,7 @@ import {
 
 const renderSimilarCards = (cards) => {
   const fragment = document.createDocumentFragment();
-  const mapCanvas = document.querySelector('#map-canvas');
+  // const mapCanvas = document.querySelector('#map-canvas');
   const templateFragment = document.querySelector('#card').content.querySelector('.popup');
   const templatePhotos = document.querySelector('#housing-photos').content.querySelector('.popup__photo');
 
@@ -111,7 +111,7 @@ const renderSimilarCards = (cards) => {
     fragment.appendChild(cardItem);
   });
 
-  mapCanvas.appendChild(fragment);
+  // mapCanvas.appendChild(fragment);
 };
 
 export {
