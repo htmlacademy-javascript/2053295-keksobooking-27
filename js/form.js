@@ -78,7 +78,6 @@ const getGuestValue = () => {
   HiddenGuestFields.map((i) => {
     guestField[i].style.display = 'none';
   });
-
 };
 
 const setTimeOutFieldValue = () => {
@@ -122,6 +121,7 @@ const makeActive = () => {
 };
 
 export {
+  getGuestValue,
   makeInactive,
   makeActive,
 };

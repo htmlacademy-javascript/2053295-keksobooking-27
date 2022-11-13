@@ -115,5 +115,5 @@ const renderSimilarCards = (cards) => {
 };
 
 export {
-  renderSimilarCards
+  renderSimilarCards,
 };
