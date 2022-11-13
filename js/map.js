@@ -62,15 +62,20 @@ resetButton.addEventListener('click', () => {
 const getResourse = async (url) => {
 
   const response = await fetch(url);
+
+  if (!response.ok) {
+    throw new Error(`Ошибка по адресу ${url}, статус ошибки ${response}`);
+  }
+
   const receivedData = await response.json();
 
   const icon = L.icon({
     iconUrl: './img/pin.svg',
     iconSize: [40, 40],
-    iconAnchor: [20, 40],
+    iconAnchor: [40, 40],
   });
 
-  receivedData.forEach(({ location }) => {
+  receivedData.forEach(({ location, title}) => {
     const lat = location.lat;
     const lng = location.lng;
     const marker = L.marker({
@@ -79,9 +84,12 @@ const getResourse = async (url) => {
     }, {
       icon,
     }, );
-    marker.addTo(map);
+    marker
+      .addTo(map)
+      .bindPopup(title);
   });
 };
+
 
 export {
   getResourse,
