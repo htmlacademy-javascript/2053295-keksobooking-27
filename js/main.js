@@ -5,7 +5,13 @@ import {
 import {
   getGuestValue,
 } from './form.js';
+import {
+  initMap,
+  renderSimilarAds,
+} from './map.js';
 
-// renderSimilarCard(getSimilarObjectsData().slice(0, 1));
 getGuestValue();
 getResourse('https://27.javascript.pages.academy/keksobooking/data');
+initMap();
+renderSimilarAds();
+

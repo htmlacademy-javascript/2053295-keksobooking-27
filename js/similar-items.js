@@ -6,6 +6,7 @@ const templateFragment = document.querySelector('#card').content.querySelector('
 const templatePhotos = document.querySelector('#housing-photos').content.querySelector('.popup__photo');
 
 const renderSimilarCard = (item) => {
+
   const cardItem = templateFragment.cloneNode(true);
   const featuresContainer = cardItem.querySelector('.popup__features');
   const featuresList = featuresContainer.querySelectorAll('.popup__feature');
