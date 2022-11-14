@@ -2,6 +2,7 @@ import {
   HouseTypeMinPrice,
   TOKYO_LAT,
   TOKYO_LNG,
+
 } from './constants.js';
 import {
   coordinates,
@@ -18,9 +19,11 @@ const roomField = document.querySelector('#room_number');
 const guestField = document.querySelector('#capacity');
 const timeInField = document.querySelector('#timein');
 const timeOutField = document.querySelector('#timeout');
+
 const submitButton = document.querySelector('.ad-form__element--submit');
 const resetButton = document.querySelector('.ad-form__reset');
 const addressField = document.querySelector('#address');
+
 let minPriceValue = HouseTypeMinPrice[typeField.value];
 
 const getAddressValue = () => {
@@ -42,14 +45,16 @@ const onTypeFieldChange = (evt) => {
   pristine.validate(priceField);
 };
 
-const onSubmitButtonPush = (evt) => {
+const onFormSubmit = (evt) => {
+
   evt.preventDefault();
-  // const isValid = pristine.validate();
-  // if (isValid) {
-  //   console.log('Можно отправлять');
-  // } else {
-  //   console.log('Форма невалидна');
-  // }
+
+  const isValid = pristine.validate();
+
+  if (isValid) {
+    adForm.submit();
+  }
+
 };
 const validatePrice = (value) => value >= minPriceValue;
 
@@ -57,7 +62,8 @@ const getPriceErrorMessage = () => `Минимальное значение ${mi
 
 pristine.addValidator(priceField, validatePrice, getPriceErrorMessage);
 
-const getGuestValue = () => {
+
+const onRoomFieldChange = () => {
 
   const selectGuestFieldValue = () => {
     if (guestField.selectedIndex === 3) {
@@ -73,19 +79,20 @@ const getGuestValue = () => {
   }
 
   let HiddenGuestFields;
+
   if (roomField.selectedIndex === 0) { // 1 КОМНАТА
     selectGuestFieldValue();
     guestField[2].selected = true;
-    HiddenGuestFields = [0, 1, 3];
+    HiddenGuestFields = NumberRooms.forOneRoom;
   } else if (roomField.selectedIndex === 1) { // 2 КОМНАТЫ
     selectGuestFieldValue();
-    HiddenGuestFields = [0, 3];
+    HiddenGuestFields = NumberRooms.forTwoRoom;
   } else if (roomField.selectedIndex === 2) { // 3 КОМНАТЫ
     selectGuestFieldValue();
-    HiddenGuestFields = [3];
+    HiddenGuestFields = NumberRooms.forThreeRoom;
   } else if (roomField.selectedIndex === 3) { // 100 КОМНАТ
     guestField[roomField.selectedIndex].selected = true;
-    HiddenGuestFields = [0, 1, 2];
+    HiddenGuestFields = NumberRooms.forHundredRoom;
   }
 
   HiddenGuestFields.map((i) => {
@@ -93,11 +100,11 @@ const getGuestValue = () => {
   });
 };
 
-const setTimeOutFieldValue = () => {
+const onTimeInFieldChange = () => {
   timeOutField[timeInField.selectedIndex].selected = true;
 };
 
-const setTimeInFieldValue = () => {
+const onTimeOutFieldChange = () => {
   timeInField[timeOutField.selectedIndex].selected = true;
 };
 
@@ -111,10 +118,11 @@ const makeInactive = () => {
   });
 
   typeField.removeEventListener('change', onTypeFieldChange);
-  roomField.removeEventListener('change', getGuestValue);
-  timeInField.removeEventListener('change', setTimeOutFieldValue);
-  timeOutField.removeEventListener('change', setTimeInFieldValue);
-  submitButton.removeEventListener('submit', onSubmitButtonPush);
+  roomField.removeEventListener('change', onRoomFieldChange);
+  timeInField.removeEventListener('change', onTimeInFieldChange);
+  timeOutField.removeEventListener('change', onTimeOutFieldChange);
+  adForm.removeEventListener('submit', onFormSubmit);
+
 };
 
 makeInactive();
@@ -128,11 +136,13 @@ const makeActive = () => {
     fieldset.disabled = false;
   });
 
+  onRoomFieldChange();
+
   typeField.addEventListener('change', onTypeFieldChange);
-  roomField.addEventListener('change', getGuestValue);
-  timeInField.addEventListener('change', setTimeOutFieldValue);
-  timeOutField.addEventListener('change', setTimeInFieldValue);
-  submitButton.addEventListener('submit', onSubmitButtonPush);
+  roomField.addEventListener('change', onRoomFieldChange);
+  timeInField.addEventListener('change', onTimeInFieldChange);
+  timeOutField.addEventListener('change', onTimeOutFieldChange);
+  adForm.addEventListener('submit', onFormSubmit);
 };
 
 resetButton.addEventListener('click', () => {

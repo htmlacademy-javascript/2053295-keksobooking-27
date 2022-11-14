@@ -1,3 +1,4 @@
+
 const MIN_PRICE = 1000; //Минимальная цена
 const MAX_PRICE = 10000; //Максимальная цена
 const LAT_MIN = 35.65000; //Координаты. Минимальная широта
@@ -22,6 +23,13 @@ const HouseTypeMinPrice = { //Минимальные значения стоим
   bungalow: 0,
   hotel: 3000,
 };
+const NumberRooms = {
+  forOneRoom: [0, 1, 3],
+  forTwoRoom: [0, 3],
+  forThreeRoom: [3],
+  forHundredRoom: [0, 1, 2],
+};
+
 
 export {
   MIN_PRICE,
@@ -35,4 +43,6 @@ export {
   TOKYO_LNG,
   HouseType,
   HouseTypeMinPrice,
+  NumberRooms,
+
 };
