@@ -157,7 +157,6 @@ resetButton.addEventListener('click', () => {
 });
 
 export {
-  getGuestValue,
   resetButton,
   makeActive,
   getAddressValue,
