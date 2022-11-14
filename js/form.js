@@ -151,5 +151,4 @@ export {
   resetButton,
   makeActive,
   getAddressValue,
-  // resetButton,
 };
