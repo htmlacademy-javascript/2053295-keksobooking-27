@@ -1,24 +1,22 @@
 import {
-  makeInactive,
+  TOKYO_LAT,
+  TOKYO_LNG,
+} from './constants.js';
+import {
   makeActive,
+  getAddressValue,
+  // coordinates,
 } from './form.js';
 
-makeInactive();
-const addressField = document.querySelector('#address');
-let coordinates = {};
-const getAddressValue = () => {
-  addressField.value = `${coordinates.lat.toFixed(5)} ${coordinates.lng.toFixed(5)}`;
-};
 
-const resetButton = document.querySelector('.ad-form__reset');
-
+let coordinates;
 const map = L.map('map-canvas')
   .on('load', () => {
     makeActive();
   })
   .setView({
-    lat: 35.6895,
-    lng: 139.692,
+    lat: TOKYO_LAT,
+    lng: TOKYO_LNG,
   }, 16);
 
 L.tileLayer(
@@ -29,13 +27,13 @@ L.tileLayer(
 
 const mainPinIcon = L.icon({
   iconUrl: './img/main-pin.svg',
-  iconSize: [40, 40],
-  iconAnchor: [52, 52],
+  iconSize: [52, 52],
+  iconAnchor: [26, 52],
 });
 
 const mainPinMarker = L.marker({
-  lat: 35.6895,
-  lng: 139.692,
+  lat: TOKYO_LAT,
+  lng: TOKYO_LNG,
 }, {
   draggable: true,
   icon: mainPinIcon,
@@ -48,49 +46,9 @@ mainPinMarker.on('moveend', (evt) => {
   getAddressValue();
 });
 
-resetButton.addEventListener('click', () => {
-  mainPinMarker.setLatLng({
-    lat: 35.6895,
-    lng: 139.692,
-  });
-  map.setView({
-    lat: 35.6895,
-    lng: 139.692,
-  }, 16);
-});
-
-const getResourse = async (url) => {
-
-  const response = await fetch(url);
-
-  if (!response.ok) {
-    throw new Error(`Ошибка по адресу ${url}, статус ошибки ${response}`);
-  }
-
-  const receivedData = await response.json();
-
-  const icon = L.icon({
-    iconUrl: './img/pin.svg',
-    iconSize: [40, 40],
-    iconAnchor: [40, 40],
-  });
-
-  receivedData.forEach(({ location, title}) => {
-    const lat = location.lat;
-    const lng = location.lng;
-    const marker = L.marker({
-      lat,
-      lng
-    }, {
-      icon,
-    }, );
-    marker
-      .addTo(map)
-      .bindPopup(title);
-  });
-};
-
 
 export {
-  getResourse,
+  map,
+  coordinates,
+  mainPinMarker,
 };

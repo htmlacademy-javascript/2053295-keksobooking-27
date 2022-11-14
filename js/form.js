@@ -1,6 +1,13 @@
 import {
   HouseTypeMinPrice,
+  TOKYO_LAT,
+  TOKYO_LNG,
 } from './constants.js';
+import {
+  coordinates,
+  map,
+  mainPinMarker,
+} from './map.js';
 
 const adForm = document.querySelector('.ad-form');
 const adFormElement = document.querySelectorAll('.ad-form__element');
@@ -12,7 +19,13 @@ const guestField = document.querySelector('#capacity');
 const timeInField = document.querySelector('#timein');
 const timeOutField = document.querySelector('#timeout');
 const submitButton = document.querySelector('.ad-form__element--submit');
+const resetButton = document.querySelector('.ad-form__reset');
+const addressField = document.querySelector('#address');
 let minPriceValue = HouseTypeMinPrice[typeField.value];
+
+const getAddressValue = () => {
+  addressField.value = `${coordinates.lat.toFixed(5)} ${coordinates.lng.toFixed(5)}`;
+};
 
 const pristine = new Pristine(adForm, {
   classTo: 'ad-form__element',
@@ -104,6 +117,8 @@ const makeInactive = () => {
   submitButton.removeEventListener('submit', onSubmitButtonPush);
 };
 
+makeInactive();
+
 // Перевод формы в активное состояние
 const makeActive = () => {
   adForm.classList.remove('ad-form--disabled');
@@ -120,8 +135,21 @@ const makeActive = () => {
   submitButton.addEventListener('submit', onSubmitButtonPush);
 };
 
+resetButton.addEventListener('click', () => {
+  mainPinMarker.setLatLng({
+    lat: TOKYO_LAT,
+    lng: TOKYO_LNG,
+  });
+  map.setView({
+    lat: TOKYO_LAT,
+    lng: TOKYO_LNG,
+  }, 16);
+});
+
 export {
   getGuestValue,
-  makeInactive,
+  resetButton,
   makeActive,
+  getAddressValue,
+  // resetButton,
 };
