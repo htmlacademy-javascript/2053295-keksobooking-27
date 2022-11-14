@@ -2,7 +2,7 @@ import {
   HouseTypeMinPrice,
   TOKYO_LAT,
   TOKYO_LNG,
-
+  NumberRooms,
 } from './constants.js';
 import {
   coordinates,
@@ -20,7 +20,7 @@ const guestField = document.querySelector('#capacity');
 const timeInField = document.querySelector('#timein');
 const timeOutField = document.querySelector('#timeout');
 
-const submitButton = document.querySelector('.ad-form__element--submit');
+// const submitButton = document.querySelector('.ad-form__element--submit');
 const resetButton = document.querySelector('.ad-form__reset');
 const addressField = document.querySelector('#address');
 
