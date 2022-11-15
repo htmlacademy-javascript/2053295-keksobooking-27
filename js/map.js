@@ -10,10 +10,10 @@ import {
   renderSimilarCard,
 } from './similar-items.js';
 
-let coordinates;
+// let coordinates;
 const map = L.map('map-canvas');
 
-const balloonsLayer = L.layerGroup();
+const balloonsLayer = L.layerGroup().addTo(map);
 
 const mainPinIcon = L.icon({
   iconUrl: './img/main-pin.svg',
@@ -38,8 +38,8 @@ const mainPinMarker = L.marker({
 mainPinMarker.addTo(map);
 
 mainPinMarker.on('moveend', (evt) => {
-  coordinates = evt.target.getLatLng();
-  getAddressValue();
+  const coordinates = evt.target.getLatLng();
+  getAddressValue(coordinates);
 });
 
 const renderSimilarAds = (data) => {
@@ -75,10 +75,19 @@ const initMap = () => {
   ).addTo(map);
 };
 
+const returnToDefaultLocation = () => {
+  mainPinMarker.setLatLng({
+    lat: TOKYO_LAT,
+    lng: TOKYO_LNG,
+  });
+  map.setView({
+    lat: TOKYO_LAT,
+    lng: TOKYO_LNG,
+  }, 16);
+};
+
 export {
   renderSimilarAds,
-  map,
+  returnToDefaultLocation,
   initMap,
-  coordinates,
-  mainPinMarker,
 };

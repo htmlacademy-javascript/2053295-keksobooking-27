@@ -1,13 +1,10 @@
 import {
   HouseTypeMinPrice,
-  TOKYO_LAT,
-  TOKYO_LNG,
   NumberRooms,
 } from './constants.js';
 import {
-  coordinates,
-  map,
-  mainPinMarker,
+  returnToDefaultLocation,
+
 } from './map.js';
 
 const adForm = document.querySelector('.ad-form');
@@ -19,14 +16,12 @@ const roomField = document.querySelector('#room_number');
 const guestField = document.querySelector('#capacity');
 const timeInField = document.querySelector('#timein');
 const timeOutField = document.querySelector('#timeout');
-
-// const submitButton = document.querySelector('.ad-form__element--submit');
 const resetButton = document.querySelector('.ad-form__reset');
 const addressField = document.querySelector('#address');
 
 let minPriceValue = HouseTypeMinPrice[typeField.value];
 
-const getAddressValue = () => {
+const getAddressValue = (coordinates) => {
   addressField.value = `${coordinates.lat.toFixed(5)} ${coordinates.lng.toFixed(5)}`;
 };
 
@@ -122,10 +117,8 @@ const makeInactive = () => {
   timeInField.removeEventListener('change', onTimeInFieldChange);
   timeOutField.removeEventListener('change', onTimeOutFieldChange);
   adForm.removeEventListener('submit', onFormSubmit);
-
+  resetButton.addEventListener('click', returnToDefaultLocation);
 };
-
-makeInactive();
 
 // Перевод формы в активное состояние
 const makeActive = () => {
@@ -136,28 +129,17 @@ const makeActive = () => {
     fieldset.disabled = false;
   });
 
-  onRoomFieldChange();
-
   typeField.addEventListener('change', onTypeFieldChange);
   roomField.addEventListener('change', onRoomFieldChange);
   timeInField.addEventListener('change', onTimeInFieldChange);
   timeOutField.addEventListener('change', onTimeOutFieldChange);
   adForm.addEventListener('submit', onFormSubmit);
+  resetButton.addEventListener('click', returnToDefaultLocation);
 };
-
-resetButton.addEventListener('click', () => {
-  mainPinMarker.setLatLng({
-    lat: TOKYO_LAT,
-    lng: TOKYO_LNG,
-  });
-  map.setView({
-    lat: TOKYO_LAT,
-    lng: TOKYO_LNG,
-  }, 16);
-});
 
 export {
   resetButton,
+  makeInactive,
   makeActive,
   getAddressValue,
 };
