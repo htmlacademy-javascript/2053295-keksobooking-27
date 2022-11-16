@@ -1,16 +1,16 @@
 import {
   TOKYO_LAT,
   TOKYO_LNG,
+  ARRAY_LENGTH,
 } from './constants.js';
 import {
   makeActive,
-  getAddressValue,
+  setAddressValue,
 } from './form.js';
 import {
   renderSimilarCard,
 } from './similar-items.js';
 
-// let coordinates;
 const map = L.map('map-canvas');
 
 const balloonsLayer = L.layerGroup().addTo(map);
@@ -39,11 +39,11 @@ mainPinMarker.addTo(map);
 
 mainPinMarker.on('moveend', (evt) => {
   const coordinates = evt.target.getLatLng();
-  getAddressValue(coordinates);
+  setAddressValue(coordinates);
 });
 
 const renderSimilarAds = (data) => {
-  data.forEach((item) => {
+  data.slice(0, ARRAY_LENGTH).forEach((item) => {
     const { location } = item;
     const lat = location.lat;
     const lng = location.lng;
