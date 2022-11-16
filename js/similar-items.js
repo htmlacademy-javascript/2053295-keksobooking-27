@@ -2,97 +2,99 @@ import {
   HouseType
 } from './constants.js';
 
-const renderSimilarCards = (cards) => {
-  const fragment = document.createDocumentFragment();
-  const mapCanvas = document.querySelector('#map-canvas');
-  const templateFragment = document.querySelector('#card').content.querySelector('.popup');
-  const templatePhotos = document.querySelector('#housing-photos').content.querySelector('.popup__photo');
+const templateFragment = document.querySelector('#card').content.querySelector('.popup');
+const templatePhotos = document.querySelector('#housing-photos').content.querySelector('.popup__photo');
 
-  cards.forEach((item) => {
-    const cardItem = templateFragment.cloneNode(true);
-    const featuresList = cardItem.querySelector('.popup__features').querySelectorAll('.popup__feature');
-    const photoContainer = cardItem.querySelector('.popup__photos');
-    const cardItemAvatar = cardItem.querySelector('.popup__avatar');
-    const cardItemTitle = cardItem.querySelector('.popup__title');
-    const cardItemAddress = cardItem.querySelector('.popup__text--address');
-    const cardItemPrice = cardItem.querySelector('.popup__text--price');
-    const cardItemType = cardItem.querySelector('.popup__type');
-    const cardItemCapacity = cardItem.querySelector('.popup__text--capacity');
-    const cardItemTime = cardItem.querySelector('.popup__text--time');
-    const cardItemDescription = cardItem.querySelector('.popup__description');
+const renderSimilarCard = (item) => {
 
-    const { avatar, } = item.author;
-    const { lat, lng, } = item.location;
-    const { address, checkin, checkout, description, features, guests, photos, price, rooms, title, type, } = item.offer;
+  const cardItem = templateFragment.cloneNode(true);
+  const featuresContainer = cardItem.querySelector('.popup__features');
+  const featuresList = featuresContainer.querySelectorAll('.popup__feature');
+  const photoContainer = cardItem.querySelector('.popup__photos');
+  const cardItemAvatar = cardItem.querySelector('.popup__avatar');
+  const cardItemTitle = cardItem.querySelector('.popup__title');
+  const cardItemAddress = cardItem.querySelector('.popup__text--address');
+  const cardItemPrice = cardItem.querySelector('.popup__text--price');
+  const cardItemType = cardItem.querySelector('.popup__type');
+  const cardItemCapacity = cardItem.querySelector('.popup__text--capacity');
+  const cardItemTime = cardItem.querySelector('.popup__text--time');
+  const cardItemDescription = cardItem.querySelector('.popup__description');
 
-    let roomsWord;
-    let guestsWord;
+  const { avatar, } = item.author;
+  const { lat, lng, } = item.location;
+  const { address, checkin, checkout, description, features, guests, photos, price, rooms, title, type, } = item.offer;
 
-    if (rooms === 1) {
-      roomsWord = 'комната';
-    } else if (rooms >= 5) {
-      roomsWord = 'комнат';
-    } else {
-      roomsWord = 'комнаты';
-    }
-    if (guests === 1) {
-      guestsWord = 'гостя';
-    } else {
-      guestsWord = 'гостей';
-    }
+  let roomsWord;
+  let guestsWord;
 
-    if (!avatar) {
-      cardItemAvatar.remove();
-    } else {
-      cardItemAvatar.src = avatar;
-    }
+  if (rooms === 1) {
+    roomsWord = 'комната';
+  } else if (rooms >= 5) {
+    roomsWord = 'комнат';
+  } else {
+    roomsWord = 'комнаты';
+  }
+  if (guests === 1) {
+    guestsWord = 'гостя';
+  } else {
+    guestsWord = 'гостей';
+  }
 
-    if (!title) {
-      cardItemTitle.remove();
-    } else {
-      cardItemTitle.textContent = title;
-    }
+  if (!avatar) {
+    cardItemAvatar.remove();
+  } else {
+    cardItemAvatar.src = avatar;
+  }
 
-    if (!lat || !lng) {
-      cardItemAddress.remove();
-    } else {
-      cardItemAddress.textContent = address;
-    }
+  if (!title) {
+    cardItemTitle.remove();
+  } else {
+    cardItemTitle.textContent = title;
+  }
 
-    if (!price) {
-      cardItemPrice.remove();
-    } else {
-      cardItemPrice.textContent = `${price} ₽/ночь`;
-    }
+  if (!(lat || lng)) {
+    cardItemAddress.remove();
+  } else {
+    cardItemAddress.textContent = address;
+  }
 
-    if (!type) {
-      cardItemType.remove();
-    } else {
-      cardItemType.textContent = HouseType[type];
-    }
+  if (!price) {
+    cardItemPrice.remove();
+  } else {
+    cardItemPrice.textContent = `${price} ₽/ночь`;
+  }
 
-    if (!rooms || !guests) {
-      cardItemCapacity.remove();
-    } else {
-      cardItemCapacity.textContent = `${rooms} ${roomsWord} для ${guests} ${guestsWord}`;
-    }
+  if (!type) {
+    cardItemType.remove();
+  } else {
+    cardItemType.textContent = HouseType[type];
+  }
 
-    if (!checkin && !checkout) {
-      cardItemTime.textContent = 'Заезд после --:-- , выезд до --:--';
-    } else if (!checkin) {
-      cardItemTime.textContent = `Выезд до ${checkout}`;
-    } else if (!checkout) {
-      cardItemTime.textContent = `Заезд после ${checkin}`;
-    } else {
-      cardItemTime.textContent = `Заезд после ${checkin} , выезд до ${checkout}`;
-    }
+  if (!(rooms || guests)) {
+    cardItemCapacity.remove();
+  } else {
+    cardItemCapacity.textContent = `${rooms} ${roomsWord} для ${guests} ${guestsWord}`;
+  }
 
-    if (!description) {
-      cardItemDescription.remove();
-    } else {
-      cardItemDescription.textContent = description;
-    }
+  if (!(checkin && checkout)) {
+    cardItemTime.textContent = 'Заезд после --:-- , выезд до --:--';
+  } else if (!checkin) {
+    cardItemTime.textContent = `Выезд до ${checkout}`;
+  } else if (!checkout) {
+    cardItemTime.textContent = `Заезд после ${checkin}`;
+  } else {
+    cardItemTime.textContent = `Заезд после ${checkin} , выезд до ${checkout}`;
+  }
 
+  if (!description) {
+    cardItemDescription.remove();
+  } else {
+    cardItemDescription.textContent = description;
+  }
+
+  if (!(features && features.length)) {
+    featuresContainer.remove();
+  } else {
     featuresList.forEach((featuresItem) => {
       const receivedFeatures = (featuresItems) =>
         featuresItem.classList.contains(`popup__feature--${featuresItems}`);
@@ -100,7 +102,11 @@ const renderSimilarCards = (cards) => {
         featuresItem.remove();
       }
     });
+  }
 
+  if (!(photos && photos.length)) {
+    photoContainer.remove();
+  } else {
     photos.forEach((photo) => {
       if (photo) {
         const photoItem = templatePhotos.cloneNode(true);
@@ -108,12 +114,10 @@ const renderSimilarCards = (cards) => {
         photoContainer.appendChild(photoItem);
       }
     });
-    fragment.appendChild(cardItem);
-  });
-
-  mapCanvas.appendChild(fragment);
+  }
+  return cardItem;
 };
 
 export {
-  renderSimilarCards
+  renderSimilarCard,
 };

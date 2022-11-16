@@ -2,6 +2,10 @@ import {
   HouseTypeMinPrice,
   NumberRooms,
 } from './constants.js';
+import {
+  returnToDefaultLocation,
+
+} from './map.js';
 
 const adForm = document.querySelector('.ad-form');
 const adFormElement = document.querySelectorAll('.ad-form__element');
@@ -12,7 +16,32 @@ const roomField = document.querySelector('#room_number');
 const guestField = document.querySelector('#capacity');
 const timeInField = document.querySelector('#timein');
 const timeOutField = document.querySelector('#timeout');
+const resetButton = document.querySelector('.ad-form__reset');
+const addressField = document.querySelector('#address');
+const rangeSlider = document.querySelector('.ad-form__slider');
+
 let minPriceValue = HouseTypeMinPrice[typeField.value];
+
+const setAddressValue = (coordinates) => {
+  addressField.value = `${coordinates.lat.toFixed(5)} ${coordinates.lng.toFixed(5)}`;
+};
+
+const renderSlider = () => {
+  if (rangeSlider) {
+    noUiSlider.create(rangeSlider, {
+      start: [0],
+      connect: false,
+      step: 1,
+      range: {
+        'min': [0],
+        'max': [100000]
+      }
+    });
+  }
+  rangeSlider.noUiSlider.on('update', (values, handle) => {
+    priceField.value = Math.round(values, handle);
+  });
+};
 
 const pristine = new Pristine(adForm, {
   classTo: 'ad-form__element',
@@ -27,6 +56,7 @@ const onTypeFieldChange = (evt) => {
   priceField.placeholder = HouseTypeMinPrice[evt.target.value];
   minPriceValue = HouseTypeMinPrice[evt.target.value];
   pristine.validate(priceField);
+
 };
 
 const onFormSubmit = (evt) => {
@@ -45,7 +75,6 @@ const validatePrice = (value) => value >= minPriceValue;
 const getPriceErrorMessage = () => `Минимальное значение ${minPriceValue}`;
 
 pristine.addValidator(priceField, validatePrice, getPriceErrorMessage);
-
 
 const onRoomFieldChange = () => {
 
@@ -106,7 +135,7 @@ const makeInactive = () => {
   timeInField.removeEventListener('change', onTimeInFieldChange);
   timeOutField.removeEventListener('change', onTimeOutFieldChange);
   adForm.removeEventListener('submit', onFormSubmit);
-
+  resetButton.addEventListener('click', returnToDefaultLocation);
 };
 
 // Перевод формы в активное состояние
@@ -117,17 +146,19 @@ const makeActive = () => {
   adFormElement.forEach((fieldset) => {
     fieldset.disabled = false;
   });
-
-  onRoomFieldChange();
-
+  renderSlider();
+  rangeSlider.noUiSlider.set(minPriceValue);
   typeField.addEventListener('change', onTypeFieldChange);
   roomField.addEventListener('change', onRoomFieldChange);
   timeInField.addEventListener('change', onTimeInFieldChange);
   timeOutField.addEventListener('change', onTimeOutFieldChange);
   adForm.addEventListener('submit', onFormSubmit);
+  resetButton.addEventListener('click', returnToDefaultLocation);
 };
 
 export {
+  resetButton,
   makeInactive,
   makeActive,
+  setAddressValue,
 };

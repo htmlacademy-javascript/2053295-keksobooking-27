@@ -6,6 +6,9 @@ const LAT_MAX = 35.70000; //Координаты. Максимальная ши�
 const LNG_MIN = 139.70000; //Координаты. Минимальная долгота
 const LNG_MAX = 139.80000; //Координаты. Максимальная долгота
 const ARRAY_LENGTH = 10; //Длина массива с объектами
+const TOKYO_LAT = 35.68787; //Широта Токио
+const TOKYO_LNG = 139.72043; //Долгота Токио
+
 const HouseType = { //Русские значения видов жилья
   palace: 'Дворец',
   flat: 'Квартира',
@@ -27,7 +30,6 @@ const NumberRooms = {
   forHundredRoom: [0, 1, 2],
 };
 
-
 export {
   MIN_PRICE,
   MAX_PRICE,
@@ -36,8 +38,9 @@ export {
   LNG_MIN,
   LNG_MAX,
   ARRAY_LENGTH,
+  TOKYO_LAT,
+  TOKYO_LNG,
   HouseType,
   HouseTypeMinPrice,
   NumberRooms,
-
 };

@@ -1,14 +1,15 @@
 import {
-  getSimilarObjectsData,
-} from './data.js';
-import {
-  renderSimilarCards,
-} from './similar-items.js';
+  getResourse,
+} from './api.js';
 import {
   makeInactive,
-  makeActive,
 } from './form.js';
 
-renderSimilarCards(getSimilarObjectsData().slice(0, 1));
+import {
+  initMap,
+  renderSimilarAds,
+} from './map.js';
+
 makeInactive();
-makeActive();
+initMap();
+getResourse('https://27.javascript.pages.academy/keksobooking/data').then((data) => renderSimilarAds(data));
