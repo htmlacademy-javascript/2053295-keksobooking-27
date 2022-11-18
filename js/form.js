@@ -159,6 +159,7 @@ const makeActive = () => {
     fieldset.disabled = false;
   });
   renderSlider();
+  onRoomFieldChange();
   rangeSlider.noUiSlider.set(minPriceValue);
   typeField.addEventListener('change', onTypeFieldChange);
   roomField.addEventListener('change', onRoomFieldChange);

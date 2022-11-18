@@ -5,20 +5,46 @@ const body = document.querySelector('body');
 const createSuccessfullySentMessage = () => {
   const successMessage = templateSuccessMessage.cloneNode(true);
   body.insertAdjacentElement('beforeend', successMessage);
-  successMessage.addEventListener('click', () => {
+
+  const onEscapeRemoveSuccessMessage = (e) => {
+    if (e.key === 'Escape') {
+      successMessage.remove();
+    }
+    successMessage.removeEventListener('click', );
+    document.removeEventListener('keydown', onEscapeRemoveSuccessMessage);
+  };
+
+  const onClickRemoveSuccessMessage = () => {
     successMessage.remove();
-  }, { once: true });
+    successMessage.removeEventListener('click', onClickRemoveSuccessMessage);
+    document.removeEventListener('keydown', onEscapeRemoveSuccessMessage);
+  };
+
+
+  successMessage.addEventListener('click', onClickRemoveSuccessMessage);
+  document.addEventListener('keydown', onEscapeRemoveSuccessMessage);
 };
 
 const createErrorSentMessage = () => {
   const errorMessage = templateErrorMessage.cloneNode(true);
-  body.insertAdjacentElement('beforeend', errorMessage);
   const errorButton = errorMessage.querySelector('.error__button');
-  errorButton.addEventListener('click', () => {
-    errorMessage.remove();
-  }, { once: true });
-};
+  body.insertAdjacentElement('beforeend', errorMessage);
 
+  const onClickRemoveErrorMessage = () => {
+    errorMessage.remove();
+    errorButton.removeEventListener('click', onClickRemoveErrorMessage);
+
+  };
+  const onClickEscapeErrorMessage = (e) => {
+    if (e.key === 'Escape') {
+      errorMessage.remove();
+      errorButton.removeEventListener('click', onClickRemoveErrorMessage);
+      document.removeEventListener('keydown', onClickEscapeErrorMessage);
+    }
+  };
+  errorButton.addEventListener('click', onClickRemoveErrorMessage);
+  document.addEventListener('keydown', onClickEscapeErrorMessage);
+};
 
 export {
   createSuccessfullySentMessage,
