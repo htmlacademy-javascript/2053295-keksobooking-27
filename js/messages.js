@@ -1,3 +1,7 @@
+import {
+  returnToDefaultLocation,
+} from './map.js';
+
 const templateSuccessMessage = document.querySelector('#success').content.querySelector('.success');
 const templateErrorMessage = document.querySelector('#error').content.querySelector('.error');
 const body = document.querySelector('body');
@@ -12,12 +16,14 @@ const createSuccessfullySentMessage = () => {
     }
     successMessage.removeEventListener('click', );
     document.removeEventListener('keydown', onEscapeRemoveSuccessMessage);
+    returnToDefaultLocation();
   };
 
   const onClickRemoveSuccessMessage = () => {
     successMessage.remove();
     successMessage.removeEventListener('click', onClickRemoveSuccessMessage);
     document.removeEventListener('keydown', onEscapeRemoveSuccessMessage);
+    returnToDefaultLocation();
   };
 
 
