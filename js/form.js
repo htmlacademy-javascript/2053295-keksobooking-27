@@ -4,8 +4,14 @@ import {
 } from './constants.js';
 import {
   returnToDefaultLocation,
-
 } from './map.js';
+import {
+  sendResource,
+} from './api.js';
+import {
+  createSuccessfullySentMessage,
+  createErrorSentMessage,
+} from './messages.js';
 
 const adForm = document.querySelector('.ad-form');
 const adFormElement = document.querySelectorAll('.ad-form__element');
@@ -60,16 +66,22 @@ const onTypeFieldChange = (evt) => {
 };
 
 const onFormSubmit = (evt) => {
-
   evt.preventDefault();
-
   const isValid = pristine.validate();
-
   if (isValid) {
     adForm.submit();
   }
-
+  const formData = new FormData(adForm);
+  sendResource('https://27.javascript.pages.academy/keksobooking', formData)
+    .then(() => {
+      adForm.reset();
+      createSuccessfullySentMessage();
+    })
+    .catch(() => {
+      createErrorSentMessage();
+    });
 };
+
 const validatePrice = (value) => value >= minPriceValue;
 
 const getPriceErrorMessage = () => `Минимальное значение ${minPriceValue}`;
