@@ -1,4 +1,3 @@
-
 const getResourse = async (url) => {
 
   const response = await fetch(url);

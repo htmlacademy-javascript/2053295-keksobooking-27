@@ -1,7 +1,7 @@
 const FILE_TYPES = ['jpg', 'jpeg', 'png'];
 
 const fileChooser = document.querySelector('#avatar');
-const preview = document.querySelector('.ad-form-header__preview').querySelector('img');;
+const preview = document.querySelector('.ad-form-header__preview').querySelector('img');
 const adFormField = document.querySelector('.ad-form__field');
 
 adFormField.addEventListener('change', () => {

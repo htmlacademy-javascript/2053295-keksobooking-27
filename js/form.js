@@ -1,6 +1,8 @@
 import {
   HouseTypeMinPrice,
   NumberRooms,
+  TOKYO_LAT,
+  TOKYO_LNG,
 } from './constants.js';
 import {
   returnToDefaultLocation,
@@ -133,6 +135,18 @@ const onTimeOutFieldChange = () => {
   timeInField[timeOutField.selectedIndex].selected = true;
 };
 
+const resetData = () => {
+  adForm.reset();
+  returnToDefaultLocation();
+  addressField.value = `${TOKYO_LAT} ${TOKYO_LNG}`;
+  pristine.reset();
+};
+
+const resetFormData = (evt) => {
+  evt.preventDefault();
+  resetData();
+};
+
 // Перевод формы в не активное состояние
 const makeInactive = () => {
   adForm.classList.add('ad-form--disabled');
@@ -147,7 +161,7 @@ const makeInactive = () => {
   timeInField.removeEventListener('change', onTimeInFieldChange);
   timeOutField.removeEventListener('change', onTimeOutFieldChange);
   adForm.removeEventListener('submit', onFormSubmit);
-  resetButton.addEventListener('click', returnToDefaultLocation);
+  resetButton.addEventListener('click', resetFormData);
 };
 
 // Перевод формы в активное состояние
@@ -166,7 +180,7 @@ const makeActive = () => {
   timeInField.addEventListener('change', onTimeInFieldChange);
   timeOutField.addEventListener('change', onTimeOutFieldChange);
   adForm.addEventListener('submit', onFormSubmit);
-  resetButton.addEventListener('click', returnToDefaultLocation);
+  resetButton.addEventListener('click', resetFormData);
 };
 
 export {
