@@ -16,4 +16,4 @@ import './housing-photo.js';
 
 makeInactive();
 initMap();
-getResourse('https://27.javascript.pages.academy/keksobooking/data').then((data) => renderSimilarAds(data));
+getResourse(renderSimilarAds);

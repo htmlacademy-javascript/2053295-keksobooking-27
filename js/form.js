@@ -11,10 +11,6 @@ import {
   sendResource,
 } from './api.js';
 import {
-  createSuccessfullySentMessage,
-  createErrorSentMessage,
-} from './messages.js';
-import {
   avatarRemove,
 } from './avatar.js';
 import {
@@ -77,17 +73,9 @@ const onFormSubmit = (evt) => {
   evt.preventDefault();
   const isValid = pristine.validate();
   if (isValid) {
-    adForm.submit();
+    const formData = new FormData(adForm);
+    sendResource(formData);
   }
-  const formData = new FormData(adForm);
-  sendResource('https://27.javascript.pages.academy/keksobooking', formData)
-    .then(() => {
-      adForm.reset();
-      createSuccessfullySentMessage();
-    })
-    .catch(() => {
-      createErrorSentMessage();
-    });
 };
 
 const validatePrice = (value) => value >= minPriceValue;
@@ -176,7 +164,7 @@ const makeInactive = () => {
 const makeActive = () => {
   adForm.classList.remove('ad-form--disabled');
   mapFilters.classList.remove('map__filters--disabled');
-
+  addressField.value = `${TOKYO_LAT} ${TOKYO_LNG}`;
   adFormElement.forEach((fieldset) => {
     fieldset.disabled = false;
   });
@@ -196,4 +184,6 @@ export {
   makeInactive,
   makeActive,
   setAddressValue,
+  returnToDefaultLocation,
+  resetData,
 };

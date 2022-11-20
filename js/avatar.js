@@ -4,7 +4,7 @@ const fileChooser = document.querySelector('#avatar');
 const preview = document.querySelector('.ad-form-header__preview').querySelector('img');
 const adFormField = document.querySelector('.ad-form__field');
 
-adFormField.addEventListener('change', () => {
+const createAvatar = () => {
 
   const file = fileChooser.files[0];
   const fileName = file.name.toLowerCase();
@@ -13,7 +13,8 @@ adFormField.addEventListener('change', () => {
   if (matches) {
     preview.src = URL.createObjectURL(file);
   }
-});
+};
+adFormField.addEventListener('change', createAvatar);
 
 const avatarRemove = () => {
   preview.src = 'img/muffin-grey.svg';

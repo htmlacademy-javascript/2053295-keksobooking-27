@@ -4,7 +4,7 @@ const fileChooser = document.querySelector('#images');
 const preview = document.querySelector('.ad-form__photo');
 const uploadPhoto = document.querySelector('.ad-form__input');
 
-uploadPhoto.addEventListener('change', () => {
+const createHousingPhoto = () => {
 
   const file = fileChooser.files[0];
   const fileName = file.name.toLowerCase();
@@ -17,7 +17,9 @@ uploadPhoto.addEventListener('change', () => {
     image.width = 70;
     preview.append(image);
   }
-});
+};
+
+uploadPhoto.addEventListener('change', createHousingPhoto);
 
 const photoRemove = () => {
   const currentImages = preview.querySelectorAll('.ad-form__image');
