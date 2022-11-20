@@ -12,8 +12,20 @@ uploadPhoto.addEventListener('change', () => {
 
   if (matches) {
     const image = document.createElement('img');
+    image.classList.add('ad-form__image');
     image.src = URL.createObjectURL(file);
     image.width = 70;
     preview.append(image);
   }
 });
+
+const photoRemove = () => {
+  const currentImages = preview.querySelectorAll('.ad-form__image');
+  currentImages.forEach((e) => {
+    e.remove();
+  });
+};
+
+export {
+  photoRemove,
+};

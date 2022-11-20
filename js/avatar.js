@@ -14,3 +14,11 @@ adFormField.addEventListener('change', () => {
     preview.src = URL.createObjectURL(file);
   }
 });
+
+const avatarRemove = () => {
+  preview.src = 'img/muffin-grey.svg';
+};
+
+export {
+  avatarRemove,
+};

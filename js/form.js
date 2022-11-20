@@ -14,6 +14,12 @@ import {
   createSuccessfullySentMessage,
   createErrorSentMessage,
 } from './messages.js';
+import {
+  avatarRemove,
+} from './avatar.js';
+import {
+  photoRemove,
+} from './housing-photo.js';
 
 const adForm = document.querySelector('.ad-form');
 const adFormElement = document.querySelectorAll('.ad-form__element');
@@ -139,6 +145,8 @@ const resetData = () => {
   adForm.reset();
   returnToDefaultLocation();
   addressField.value = `${TOKYO_LAT} ${TOKYO_LNG}`;
+  avatarRemove();
+  photoRemove();
   pristine.reset();
 };
 
