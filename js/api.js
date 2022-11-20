@@ -1,19 +1,20 @@
 import {
   createSuccessfullySentMessage,
   createErrorSentMessage,
+  showPushMessage,
 } from './messages.js';
 import {
   resetData,
 } from './form.js';
 
 const getResourse = async (onSuccess) => {
-  fetch('https://27.javascript.pages.academy/keksobooking/data')
+  fetch('https://27.javascript.pages.cademy/keksobooking/data')
     .then((response) => response.json())
     .then((data) => {
       onSuccess(data);
     })
     .catch(() => {
-      // alert('Ошибка загрузки');
+      showPushMessage();
     });
 };
 

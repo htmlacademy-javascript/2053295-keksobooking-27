@@ -52,7 +52,18 @@ const createErrorSentMessage = () => {
   document.addEventListener('keydown', onClickEscapeErrorMessage);
 };
 
+const showPushMessage = () => {
+  const pushMessage = document.createElement('div');
+  pushMessage.classList.add('push-message');
+  pushMessage.textContent = 'Ошибка загрузки';
+  body.insertAdjacentElement('afterbegin', pushMessage);
+  setTimeout(() => {
+    pushMessage.remove();
+  }, 4000);
+};
+
 export {
   createSuccessfullySentMessage,
   createErrorSentMessage,
+  showPushMessage,
 };
