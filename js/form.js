@@ -1,11 +1,21 @@
 import {
   HouseTypeMinPrice,
   NumberRooms,
+  TOKYO_LAT,
+  TOKYO_LNG,
 } from './constants.js';
 import {
   returnToDefaultLocation,
-
 } from './map.js';
+import {
+  sendResource,
+} from './api.js';
+import {
+  avatarRemove,
+} from './avatar.js';
+import {
+  photoRemove,
+} from './housing-photo.js';
 
 const adForm = document.querySelector('.ad-form');
 const adFormElement = document.querySelectorAll('.ad-form__element');
@@ -60,16 +70,14 @@ const onTypeFieldChange = (evt) => {
 };
 
 const onFormSubmit = (evt) => {
-
   evt.preventDefault();
-
   const isValid = pristine.validate();
-
   if (isValid) {
-    adForm.submit();
+    const formData = new FormData(adForm);
+    sendResource(formData);
   }
-
 };
+
 const validatePrice = (value) => value >= minPriceValue;
 
 const getPriceErrorMessage = () => `Минимальное значение ${minPriceValue}`;
@@ -121,6 +129,20 @@ const onTimeOutFieldChange = () => {
   timeInField[timeOutField.selectedIndex].selected = true;
 };
 
+const resetData = () => {
+  adForm.reset();
+  returnToDefaultLocation();
+  addressField.value = `${TOKYO_LAT} ${TOKYO_LNG}`;
+  avatarRemove();
+  photoRemove();
+  pristine.reset();
+};
+
+const resetFormData = (evt) => {
+  evt.preventDefault();
+  resetData();
+};
+
 // Перевод формы в не активное состояние
 const makeInactive = () => {
   adForm.classList.add('ad-form--disabled');
@@ -135,25 +157,26 @@ const makeInactive = () => {
   timeInField.removeEventListener('change', onTimeInFieldChange);
   timeOutField.removeEventListener('change', onTimeOutFieldChange);
   adForm.removeEventListener('submit', onFormSubmit);
-  resetButton.addEventListener('click', returnToDefaultLocation);
+  resetButton.addEventListener('click', resetFormData);
 };
 
 // Перевод формы в активное состояние
 const makeActive = () => {
   adForm.classList.remove('ad-form--disabled');
   mapFilters.classList.remove('map__filters--disabled');
-
+  addressField.value = `${TOKYO_LAT} ${TOKYO_LNG}`;
   adFormElement.forEach((fieldset) => {
     fieldset.disabled = false;
   });
   renderSlider();
+  onRoomFieldChange();
   rangeSlider.noUiSlider.set(minPriceValue);
   typeField.addEventListener('change', onTypeFieldChange);
   roomField.addEventListener('change', onRoomFieldChange);
   timeInField.addEventListener('change', onTimeInFieldChange);
   timeOutField.addEventListener('change', onTimeOutFieldChange);
   adForm.addEventListener('submit', onFormSubmit);
-  resetButton.addEventListener('click', returnToDefaultLocation);
+  resetButton.addEventListener('click', resetFormData);
 };
 
 export {
@@ -161,4 +184,6 @@ export {
   makeInactive,
   makeActive,
   setAddressValue,
+  returnToDefaultLocation,
+  resetData,
 };
