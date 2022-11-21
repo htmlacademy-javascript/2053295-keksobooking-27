@@ -41,3 +41,23 @@ export {
   getResourse,
   sendResource,
 };
+
+
+// fetch('https://27.javascript.pages.academy/keksobooking', {
+//       method: 'POST',
+//       type: 'multipart/form-data',
+//       body: data,
+//     })
+//     .then((response) => {
+//       if (response.ok) {
+//         createSuccessfullySentMessage();
+//         console.log('ok');
+//       } else {
+//           createErrorSentMessage();
+//           console.log('!ok');
+//       }
+//     })
+//     .catch(() => {
+//       createErrorSentMessage();
+//       console.log('!ok!');
+//     })

@@ -85,7 +85,6 @@ const returnToDefaultLocation = () => {
     lat: TOKYO_LAT,
     lng: TOKYO_LNG,
   }, MAP_ZOOM);
-};
 
 export {
   renderSimilarAds,

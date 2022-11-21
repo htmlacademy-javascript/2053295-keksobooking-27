@@ -60,6 +60,7 @@ const showPushMessage = () => {
   setTimeout(() => {
     pushMessage.remove();
   }, 3000);
+
 };
 
 export {
