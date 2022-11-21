@@ -2,6 +2,7 @@ import {
   TOKYO_LAT,
   TOKYO_LNG,
   ARRAY_LENGTH,
+  MAP_ZOOM,
 } from './constants.js';
 import {
   makeActive,
@@ -67,7 +68,7 @@ const initMap = () => {
     .setView({
       lat: TOKYO_LAT,
       lng: TOKYO_LNG,
-    }, 16);
+    }, MAP_ZOOM);
   L.tileLayer(
     'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors | Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>',
@@ -83,7 +84,7 @@ const returnToDefaultLocation = () => {
   map.setView({
     lat: TOKYO_LAT,
     lng: TOKYO_LNG,
-  }, 16);
+  }, MAP_ZOOM);
 };
 
 export {

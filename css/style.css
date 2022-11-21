@@ -1050,3 +1050,20 @@ fieldset {
 .hidden {
   display: none;
 }
+
+/**
+ * Сообщение о неуспешной загрузке данных
+ */
+
+.push-message {
+  position: absolute;
+  top: 1%;
+  left: 50%;
+  transform: translate(-50%, 100%);
+  text-align: center;
+  padding: 3%;
+  color: red;
+  background-color: yellow;
+  font-size: 40px;
+  z-index: 1000;
+}

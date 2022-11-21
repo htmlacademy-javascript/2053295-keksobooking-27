@@ -8,6 +8,7 @@ const LNG_MAX = 139.80000; //Координаты. Максимальная до
 const ARRAY_LENGTH = 10; //Длина массива с объектами
 const TOKYO_LAT = 35.68787; //Широта Токио
 const TOKYO_LNG = 139.72043; //Долгота Токио
+const MAP_ZOOM = 13; //Зум карты
 
 const HouseType = { //Русские значения видов жилья
   palace: 'Дворец',
@@ -40,6 +41,7 @@ export {
   ARRAY_LENGTH,
   TOKYO_LAT,
   TOKYO_LNG,
+  MAP_ZOOM,
   HouseType,
   HouseTypeMinPrice,
   NumberRooms,
