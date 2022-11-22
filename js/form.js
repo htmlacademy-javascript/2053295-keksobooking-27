@@ -5,6 +5,7 @@ import {
   TOKYO_LNG,
 } from './constants.js';
 import {
+  renderSimilarAds,
   returnToDefaultLocation,
 } from './map.js';
 import {
@@ -16,6 +17,7 @@ import {
 import {
   photoRemove,
 } from './housing-photo.js';
+import { resetFilters } from './filter.js';
 
 const adForm = document.querySelector('.ad-form');
 const adFormElement = document.querySelectorAll('.ad-form__element');
@@ -101,17 +103,17 @@ const onRoomFieldChange = () => {
 
   let HiddenGuestFields;
 
-  if (roomField.selectedIndex === 0) { // 1 КОМНАТА
+  if (roomField.selectedIndex === 0) {
     selectGuestFieldValue();
     guestField[2].selected = true;
     HiddenGuestFields = NumberRooms.forOneRoom;
-  } else if (roomField.selectedIndex === 1) { // 2 КОМНАТЫ
+  } else if (roomField.selectedIndex === 1) {
     selectGuestFieldValue();
     HiddenGuestFields = NumberRooms.forTwoRoom;
-  } else if (roomField.selectedIndex === 2) { // 3 КОМНАТЫ
+  } else if (roomField.selectedIndex === 2) {
     selectGuestFieldValue();
     HiddenGuestFields = NumberRooms.forThreeRoom;
-  } else if (roomField.selectedIndex === 3) { // 100 КОМНАТ
+  } else if (roomField.selectedIndex === 3) {
     guestField[roomField.selectedIndex].selected = true;
     HiddenGuestFields = NumberRooms.forHundredRoom;
   }
@@ -137,6 +139,7 @@ const resetData = () => {
   avatarRemove();
   photoRemove();
   pristine.reset();
+  resetFilters();
 };
 
 const resetFormData = (evt) => {
@@ -144,7 +147,14 @@ const resetFormData = (evt) => {
   resetData();
 };
 
-// Перевод формы в не активное состояние
+const activateResetButtonRerender = (offers) => {
+  resetButton.addEventListener('click', () => renderSimilarAds(offers));
+};
+
+const activateFormSubmitRerender = (offers) => {
+  adForm.addEventListener('submit', () => renderSimilarAds(offers));
+};
+
 const makeInactive = () => {
   adForm.classList.add('ad-form--disabled');
   mapFilters.classList.add('map__filters--disabled');
@@ -161,7 +171,6 @@ const makeInactive = () => {
   resetButton.addEventListener('click', resetFormData);
 };
 
-// Перевод формы в активное состояние
 const makeActive = () => {
   adForm.classList.remove('ad-form--disabled');
   mapFilters.classList.remove('map__filters--disabled');
@@ -187,4 +196,6 @@ export {
   setAddressValue,
   returnToDefaultLocation,
   resetData,
+  activateResetButtonRerender,
+  activateFormSubmitRerender,
 };

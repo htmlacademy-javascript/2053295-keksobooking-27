@@ -1,4 +1,8 @@
-const FILE_TYPES = ['jpg', 'jpeg', 'png'];
+const FILE_TYPES = [
+  'jpg',
+  'jpeg',
+  'png',
+];
 
 const fileChooser = document.querySelector('#images');
 const preview = document.querySelector('.ad-form__photo');

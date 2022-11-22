@@ -26,7 +26,6 @@ const createSuccessfullySentMessage = () => {
     returnToDefaultLocation();
   };
 
-
   successMessage.addEventListener('click', onClickRemoveSuccessMessage);
   document.addEventListener('keydown', onEscapeRemoveSuccessMessage);
 };

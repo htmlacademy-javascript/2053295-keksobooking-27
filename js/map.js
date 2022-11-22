@@ -4,16 +4,20 @@ import {
   ARRAY_LENGTH,
   MAP_ZOOM,
 } from './constants.js';
+
 import {
   makeActive,
   setAddressValue,
 } from './form.js';
+
 import {
   renderSimilarCard,
 } from './similar-items.js';
+
 import {
   getResourse,
 } from './api.js';
+
 import {
   activateFilters,
 } from './filter.js';
@@ -50,6 +54,8 @@ mainPinMarker.on('moveend', (evt) => {
 });
 
 const renderSimilarAds = (data) => {
+  balloonsLayer.clearLayers();
+
   data.slice(0, ARRAY_LENGTH).forEach((item) => {
     const { location } = item;
     const lat = location.lat;

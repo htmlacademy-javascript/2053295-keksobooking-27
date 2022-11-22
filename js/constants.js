@@ -1,23 +1,22 @@
+const MIN_PRICE = 1000;
+const MAX_PRICE = 10000;
+const LAT_MIN = 35.65000;
+const LAT_MAX = 35.70000;
+const LNG_MIN = 139.70000;
+const LNG_MAX = 139.80000;
+const ARRAY_LENGTH = 10;
+const TOKYO_LAT = 35.68787;
+const TOKYO_LNG = 139.72043;
+const MAP_ZOOM = 13;
 
-const MIN_PRICE = 1000; //Минимальная цена
-const MAX_PRICE = 10000; //Максимальная цена
-const LAT_MIN = 35.65000; //Координаты. Минимальная широта
-const LAT_MAX = 35.70000; //Координаты. Максимальная широта
-const LNG_MIN = 139.70000; //Координаты. Минимальная долгота
-const LNG_MAX = 139.80000; //Координаты. Максимальная долгота
-const ARRAY_LENGTH = 10; //Длина массива с объектами
-const TOKYO_LAT = 35.68787; //Широта Токио
-const TOKYO_LNG = 139.72043; //Долгота Токио
-const MAP_ZOOM = 13; //Зум карты
-
-const HouseType = { //Русские значения видов жилья
+const HouseType = {
   palace: 'Дворец',
   flat: 'Квартира',
   house: 'Дом',
   bungalow: 'Бунгало',
   hotel: 'Отель',
 };
-const HouseTypeMinPrice = { //Минимальные значения стоимости жилья
+const HouseTypeMinPrice = {
   palace: 10000,
   flat: 1000,
   house: 5000,
@@ -29,6 +28,20 @@ const NumberRooms = {
   forTwoRoom: [0, 3],
   forThreeRoom: [3],
   forHundredRoom: [0, 1, 2],
+};
+const PriceLevel = {
+  LOW: {
+    min: 0,
+    max: 10000,
+  },
+  MIDDLE: {
+    min: 10000,
+    max: 50000,
+  },
+  HIGH: {
+    min: 50000,
+    max: 100000,
+  },
 };
 
 export {
@@ -45,4 +58,5 @@ export {
   HouseType,
   HouseTypeMinPrice,
   NumberRooms,
+  PriceLevel,
 };
