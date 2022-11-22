@@ -20,10 +20,10 @@ const getResourse = async (onSuccess) => {
 
 const sendResource = (data) => {
   fetch('https://27.javascript.pages.academy/keksobooking', {
-      method: 'POST',
-      type: 'multipart/form-data',
-      body: data,
-    })
+    method: 'POST',
+    type: 'multipart/form-data',
+    body: data,
+  })
     .then((response) => {
       if (response.ok) {
         createSuccessfullySentMessage();

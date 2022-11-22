@@ -8,6 +8,7 @@ const ARRAY_LENGTH = 10;
 const TOKYO_LAT = 35.68787;
 const TOKYO_LNG = 139.72043;
 const MAP_ZOOM = 13;
+const RERENDER_DELAY = 500;
 
 const HouseType = {
   palace: 'Дворец',
@@ -55,6 +56,7 @@ export {
   TOKYO_LAT,
   TOKYO_LNG,
   MAP_ZOOM,
+  RERENDER_DELAY,
   HouseType,
   HouseTypeMinPrice,
   NumberRooms,
