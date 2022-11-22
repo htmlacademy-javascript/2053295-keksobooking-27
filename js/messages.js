@@ -26,7 +26,6 @@ const createSuccessfullySentMessage = () => {
     returnToDefaultLocation();
   };
 
-
   successMessage.addEventListener('click', onClickRemoveSuccessMessage);
   document.addEventListener('keydown', onEscapeRemoveSuccessMessage);
 };
@@ -59,7 +58,8 @@ const showPushMessage = () => {
   body.insertAdjacentElement('afterbegin', pushMessage);
   setTimeout(() => {
     pushMessage.remove();
-  }, 4000);
+  }, 3000);
+
 };
 
 export {
