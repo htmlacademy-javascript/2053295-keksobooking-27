@@ -131,6 +131,7 @@ const onTimeOutFieldChange = () => {
 
 const resetData = () => {
   adForm.reset();
+
   returnToDefaultLocation();
   addressField.value = `${TOKYO_LAT} ${TOKYO_LNG}`;
   avatarRemove();

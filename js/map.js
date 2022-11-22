@@ -11,6 +11,12 @@ import {
 import {
   renderSimilarCard,
 } from './similar-items.js';
+import {
+  getResourse,
+} from './api.js';
+import {
+  activateFilters,
+} from './filter.js';
 
 const map = L.map('map-canvas');
 
@@ -64,6 +70,10 @@ const initMap = () => {
   map
     .on('load', () => {
       makeActive();
+      getResourse((data) => {
+        renderSimilarAds(data);
+        activateFilters(data);
+      });
     })
     .setView({
       lat: TOKYO_LAT,
@@ -85,7 +95,7 @@ const returnToDefaultLocation = () => {
     lat: TOKYO_LAT,
     lng: TOKYO_LNG,
   }, MAP_ZOOM);
-}
+};
 
 export {
   renderSimilarAds,
