@@ -2,14 +2,25 @@ import {
   TOKYO_LAT,
   TOKYO_LNG,
   ARRAY_LENGTH,
+  MAP_ZOOM,
 } from './constants.js';
+
 import {
   makeActive,
   setAddressValue,
 } from './form.js';
+
 import {
   renderSimilarCard,
 } from './similar-items.js';
+
+import {
+  getResourse,
+} from './api.js';
+
+import {
+  activateFilters,
+} from './filter.js';
 
 const map = L.map('map-canvas');
 
@@ -43,6 +54,8 @@ mainPinMarker.on('moveend', (evt) => {
 });
 
 const renderSimilarAds = (data) => {
+  balloonsLayer.clearLayers();
+
   data.slice(0, ARRAY_LENGTH).forEach((item) => {
     const { location } = item;
     const lat = location.lat;
@@ -63,11 +76,15 @@ const initMap = () => {
   map
     .on('load', () => {
       makeActive();
+      getResourse((data) => {
+        renderSimilarAds(data);
+        activateFilters(data);
+      });
     })
     .setView({
       lat: TOKYO_LAT,
       lng: TOKYO_LNG,
-    }, 13);
+    }, MAP_ZOOM);
   L.tileLayer(
     'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors | Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>',
@@ -83,7 +100,7 @@ const returnToDefaultLocation = () => {
   map.setView({
     lat: TOKYO_LAT,
     lng: TOKYO_LNG,
-  }, 13);
+  }, MAP_ZOOM);
 };
 
 export {

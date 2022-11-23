@@ -1,4 +1,8 @@
-const FILE_TYPES = ['jpg', 'jpeg', 'png'];
+const FILE_TYPES = [
+  'jpg',
+  'jpeg',
+  'png',
+];
 
 const fileChooser = document.querySelector('#avatar');
 const preview = document.querySelector('.ad-form-header__preview').querySelector('img');

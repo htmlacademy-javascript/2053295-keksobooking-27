@@ -1,6 +1,9 @@
 import {
   returnToDefaultLocation,
 } from './map.js';
+import {
+  isEscape,
+} from './util.js';
 
 const templateSuccessMessage = document.querySelector('#success').content.querySelector('.success');
 const templateErrorMessage = document.querySelector('#error').content.querySelector('.error');
@@ -10,22 +13,17 @@ const createSuccessfullySentMessage = () => {
   const successMessage = templateSuccessMessage.cloneNode(true);
   body.insertAdjacentElement('beforeend', successMessage);
 
-  const onEscapeRemoveSuccessMessage = (e) => {
-    if (e.key === 'Escape') {
+  const onEscapeRemoveSuccessMessage = () => {
+    if (isEscape) {
       successMessage.remove();
     }
-    successMessage.removeEventListener('click', );
-    document.removeEventListener('keydown', onEscapeRemoveSuccessMessage);
     returnToDefaultLocation();
   };
 
   const onClickRemoveSuccessMessage = () => {
     successMessage.remove();
-    successMessage.removeEventListener('click', onClickRemoveSuccessMessage);
-    document.removeEventListener('keydown', onEscapeRemoveSuccessMessage);
     returnToDefaultLocation();
   };
-
 
   successMessage.addEventListener('click', onClickRemoveSuccessMessage);
   document.addEventListener('keydown', onEscapeRemoveSuccessMessage);
@@ -41,8 +39,8 @@ const createErrorSentMessage = () => {
     errorButton.removeEventListener('click', onClickRemoveErrorMessage);
 
   };
-  const onClickEscapeErrorMessage = (e) => {
-    if (e.key === 'Escape') {
+  const onClickEscapeErrorMessage = () => {
+    if (isEscape) {
       errorMessage.remove();
       errorButton.removeEventListener('click', onClickRemoveErrorMessage);
       document.removeEventListener('keydown', onClickEscapeErrorMessage);
@@ -59,7 +57,8 @@ const showPushMessage = () => {
   body.insertAdjacentElement('afterbegin', pushMessage);
   setTimeout(() => {
     pushMessage.remove();
-  }, 4000);
+  }, 3000);
+
 };
 
 export {
