@@ -76,9 +76,9 @@ const resetFilters = () => {
 const deactivateFilters = () => {
   mapFilters.classList.add('map__filters--disabled');
   mapSelects.forEach((item) => {
-    item.setAttribute('disabled', true);
+    item.disabled = true;
   });
-  featuresFilters.setAttribute('disabled', true);
+  featuresFilters.disabled = true;
 };
 
 const activateFilters = (offers) => {
