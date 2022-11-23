@@ -25,7 +25,7 @@ const onUploadPhotoElementClick = () => {
 
 uploadPhotoElement.addEventListener('change', onUploadPhotoElementClick);
 
-const photoRemove = () => {
+const removePhoto = () => {
   const currentImages = previewElement.querySelectorAll('.ad-form__image');
   currentImages.forEach((e) => {
     e.remove();
@@ -33,5 +33,5 @@ const photoRemove = () => {
 };
 
 export {
-  photoRemove,
+  removePhoto,
 };

@@ -12,10 +12,10 @@ import {
   sendResource,
 } from './api.js';
 import {
-  avatarRemove,
+  removeAvatar,
 } from './avatar.js';
 import {
-  photoRemove,
+  removePhoto,
 } from './housing-photo.js';
 import { resetFilters } from './filter.js';
 
@@ -136,8 +136,8 @@ const resetData = () => {
 
   returnToDefaultLocation();
   addressFieldElement.value = `${TOKYO_LAT} ${TOKYO_LNG}`;
-  avatarRemove();
-  photoRemove();
+  removeAvatar();
+  removePhoto();
   pristine.reset();
   resetFilters();
 };

@@ -24,10 +24,10 @@ const onFormElementChange = () => {
 };
 formElement.addEventListener('change', onFormElementChange);
 
-const avatarRemove = () => {
+const removeAvatar = () => {
   previewElement.src = PREVIEW_DEFOLT;
 };
 
 export {
-  avatarRemove,
+  removeAvatar,
 };
