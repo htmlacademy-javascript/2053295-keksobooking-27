@@ -10,9 +10,9 @@ const FILE_TYPES = [
 
 const fileChooserElement = document.querySelector('#avatar');
 const previewElement = document.querySelector('.ad-form-header__preview').querySelector('img');
-const formFieldElement = document.querySelector('.ad-form__field');
+const formElement = document.querySelector('.ad-form__field');
 
-const createAvatar = () => {
+const onFormElementChange = () => {
 
   const file = fileChooserElement.files[0];
   const fileName = file.name.toLowerCase();
@@ -22,7 +22,7 @@ const createAvatar = () => {
     previewElement.src = URL.createObjectURL(file);
   }
 };
-formFieldElement.addEventListener('change', createAvatar);
+formElement.addEventListener('change', onFormElementChange);
 
 const avatarRemove = () => {
   previewElement.src = PREVIEW_DEFOLT;

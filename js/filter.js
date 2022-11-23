@@ -12,7 +12,6 @@ import {
 const mapFiltersElement = document.querySelector('.map__filters');
 const mapSelectsElement = mapFiltersElement.querySelectorAll('.map__filter');
 const featuresFiltersElement = mapFiltersElement.querySelector('.map__features');
-
 const typeFilterElement = mapFiltersElement.querySelector('#housing-type');
 const priceFilterElement = mapFiltersElement.querySelector('#housing-price');
 const roomsFilterElement = mapFiltersElement.querySelector('#housing-rooms');
