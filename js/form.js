@@ -197,5 +197,6 @@ export {
   resetData,
   activateResetButtonRerender,
   activateFormSubmitRerender,
+  onRoomFieldElementChange,
   resetFormData,
 };

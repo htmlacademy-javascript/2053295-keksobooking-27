@@ -10,8 +10,8 @@ const TOKYO_LNG = 139.72043;
 const MAP_ZOOM = 13;
 const RERENDER_DELAY = 500;
 const PREVIEW_DEFOLT = 'img/muffin-grey.svg';
-const GET_DATA_ADDRESS = 'https://27.javascript.pages.academy/keksobooking/data';
-const SET_DATA_ADDRESS = 'https://27.javascript.pages.academy/keksobooking';
+const GET_ADDRESS_DEFOLT = 'https://27.javascript.pages.academy/keksobooking/data';
+const SET_ADDRESS_DEFOLT = 'https://27.javascript.pages.academy/keksobooking';
 
 const HouseType = {
   palace: 'Дворец',
@@ -61,8 +61,8 @@ export {
   MAP_ZOOM,
   RERENDER_DELAY,
   PREVIEW_DEFOLT,
-  GET_DATA_ADDRESS,
-  SET_DATA_ADDRESS,
+  GET_ADDRESS_DEFOLT,
+  SET_ADDRESS_DEFOLT,
   HouseType,
   HouseTypeMinPrice,
   NumberRooms,

@@ -1,6 +1,6 @@
 import {
-  GET_DATA_ADDRESS,
-  SET_DATA_ADDRESS,
+  GET_ADDRESS_DEFOLT,
+  SET_ADDRESS_DEFOLT,
 } from './constants.js';
 import {
   createSuccessfullySentMessage,
@@ -12,7 +12,7 @@ import {
 } from './form.js';
 
 const getResourse = async (onSuccess) => {
-  fetch(GET_DATA_ADDRESS)
+  fetch(GET_ADDRESS_DEFOLT)
     .then((response) => response.json())
     .then((data) => {
       onSuccess(data);
@@ -23,7 +23,7 @@ const getResourse = async (onSuccess) => {
 };
 
 const sendResource = (data) => {
-  fetch(SET_DATA_ADDRESS, {
+  fetch(SET_ADDRESS_DEFOLT, {
     method: 'POST',
     type: 'multipart/form-data',
     body: data,
