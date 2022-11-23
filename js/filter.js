@@ -8,6 +8,9 @@ import {
 import {
   renderSimilarAds,
 } from './map.js';
+import {
+  debounce,
+} from './util.js';
 
 const mapFiltersElement = document.querySelector('.map__filters');
 const mapSelectsElement = mapFiltersElement.querySelectorAll('.map__filter');
@@ -17,7 +20,7 @@ const priceFilterElement = mapFiltersElement.querySelector('#housing-price');
 const roomsFilterElement = mapFiltersElement.querySelector('#housing-rooms');
 const guestsFilterElement = mapFiltersElement.querySelector('#housing-guests');
 
-const onFiltersChange = (offers) => {
+const onFiltersChange = debounce((offers) => {
   let currentOffers = offers.slice();
 
   if (typeFilterElement.value !== 'any') {
@@ -66,7 +69,7 @@ const onFiltersChange = (offers) => {
     });
   }
   renderSimilarAds(currentOffers);
-};
+});
 
 const resetFilters = () => {
   mapFiltersElement.reset();
