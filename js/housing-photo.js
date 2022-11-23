@@ -4,13 +4,13 @@ const FILE_TYPES = [
   'png',
 ];
 
-const fileChooser = document.querySelector('#images');
-const preview = document.querySelector('.ad-form__photo');
-const uploadPhoto = document.querySelector('.ad-form__input');
+const fileChooserElement = document.querySelector('#images');
+const previewElement = document.querySelector('.ad-form__photo');
+const uploadPhotoElement = document.querySelector('.ad-form__input');
 
 const createHousingPhoto = () => {
 
-  const file = fileChooser.files[0];
+  const file = fileChooserElement.files[0];
   const fileName = file.name.toLowerCase();
   const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
 
@@ -19,14 +19,14 @@ const createHousingPhoto = () => {
     image.classList.add('ad-form__image');
     image.src = URL.createObjectURL(file);
     image.width = 70;
-    preview.append(image);
+    previewElement.append(image);
   }
 };
 
-uploadPhoto.addEventListener('change', createHousingPhoto);
+uploadPhotoElement.addEventListener('change', createHousingPhoto);
 
 const photoRemove = () => {
-  const currentImages = preview.querySelectorAll('.ad-form__image');
+  const currentImages = previewElement.querySelectorAll('.ad-form__image');
   currentImages.forEach((e) => {
     e.remove();
   });

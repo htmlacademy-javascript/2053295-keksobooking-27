@@ -9,55 +9,55 @@ import {
   renderSimilarAds,
 } from './map.js';
 
-const mapFilters = document.querySelector('.map__filters');
-const mapSelects = mapFilters.querySelectorAll('.map__filter');
-const featuresFilters = mapFilters.querySelector('.map__features');
+const mapFiltersElement = document.querySelector('.map__filters');
+const mapSelectsElement = mapFiltersElement.querySelectorAll('.map__filter');
+const featuresFiltersElement = mapFiltersElement.querySelector('.map__features');
 
-const typeFilter = mapFilters.querySelector('#housing-type');
-const priceFilter = mapFilters.querySelector('#housing-price');
-const roomsFilter = mapFilters.querySelector('#housing-rooms');
-const guestsFilter = mapFilters.querySelector('#housing-guests');
+const typeFilterElement = mapFiltersElement.querySelector('#housing-type');
+const priceFilterElement = mapFiltersElement.querySelector('#housing-price');
+const roomsFilterElement = mapFiltersElement.querySelector('#housing-rooms');
+const guestsFilterElement = mapFiltersElement.querySelector('#housing-guests');
 
 const onFiltersChange = (offers) => {
   let currentOffers = offers.slice();
 
-  if (typeFilter.value !== 'any') {
+  if (typeFilterElement.value !== 'any') {
     currentOffers = currentOffers.filter(
-      (item) => item.offer.type === typeFilter.value
+      (item) => item.offer.type === typeFilterElement.value
     );
   }
 
-  if (priceFilter.value !== 'any') {
+  if (priceFilterElement.value !== 'any') {
     currentOffers = currentOffers.filter(
       (item) =>
-        item.offer.price > PriceLevel[priceFilter.value.toUpperCase()].min &&
-      item.offer.price <= PriceLevel[priceFilter.value.toUpperCase()].max
+        item.offer.price > PriceLevel[priceFilterElement.value.toUpperCase()].min &&
+      item.offer.price <= PriceLevel[priceFilterElement.value.toUpperCase()].max
     );
   }
 
-  if (roomsFilter.value !== 'any') {
+  if (roomsFilterElement.value !== 'any') {
     currentOffers = currentOffers.filter(
-      (item) => +item.offer.rooms === +roomsFilter.value
+      (item) => +item.offer.rooms === +roomsFilterElement.value
     );
   }
 
-  if (guestsFilter.value !== 'any') {
+  if (guestsFilterElement.value !== 'any') {
     currentOffers = currentOffers.filter(
-      (item) => +item.offer.guests === +guestsFilter.value
+      (item) => +item.offer.guests === +guestsFilterElement.value
     );
   }
 
-  const checkedFeatures = mapFilters.querySelectorAll(
+  const checkedFeaturesElement = mapFiltersElement.querySelectorAll(
     '[type = "checkbox"]:checked'
   );
 
-  if (checkedFeatures.length) {
+  if (checkedFeaturesElement.length) {
     currentOffers = currentOffers.filter((item) => {
       if (!item.offer.features || !item.offer.features.length) {
         return false;
       }
 
-      const checkedValues = Array.from(checkedFeatures).map(
+      const checkedValues = Array.from(checkedFeaturesElement).map(
         (checkedFeature) => checkedFeature.value
       );
 
@@ -70,24 +70,24 @@ const onFiltersChange = (offers) => {
 };
 
 const resetFilters = () => {
-  mapFilters.reset();
+  mapFiltersElement.reset();
 };
 
 const deactivateFilters = () => {
-  mapFilters.classList.add('map__filters--disabled');
-  mapSelects.forEach((item) => {
+  mapFiltersElement.classList.add('map__filters--disabled');
+  mapSelectsElement.forEach((item) => {
     item.disabled = true;
   });
-  featuresFilters.disabled = true;
+  featuresFiltersElement.disabled = true;
 };
 
 const activateFilters = (offers) => {
-  mapFilters.classList.remove('map__filters--disabled');
-  mapSelects.forEach((item) => {
+  mapFiltersElement.classList.remove('map__filters--disabled');
+  mapSelectsElement.forEach((item) => {
     item.removeAttribute('disabled');
   });
-  featuresFilters.removeAttribute('disabled');
-  mapFilters.addEventListener('change', () => onFiltersChange(offers));
+  featuresFiltersElement.removeAttribute('disabled');
+  mapFiltersElement.addEventListener('change', () => onFiltersChange(offers));
   activateResetButtonRerender(offers);
   activateFormSubmitRerender(offers);
 };

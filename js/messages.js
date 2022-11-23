@@ -5,13 +5,13 @@ import {
   isEscape,
 } from './util.js';
 
-const templateSuccessMessage = document.querySelector('#success').content.querySelector('.success');
-const templateErrorMessage = document.querySelector('#error').content.querySelector('.error');
-const body = document.querySelector('body');
+const templateSuccessMessageElement = document.querySelector('#success').content.querySelector('.success');
+const templateErrorMessageElement = document.querySelector('#error').content.querySelector('.error');
+const bodyElement = document.querySelector('body');
 
 const createSuccessfullySentMessage = () => {
-  const successMessage = templateSuccessMessage.cloneNode(true);
-  body.insertAdjacentElement('beforeend', successMessage);
+  const successMessage = templateSuccessMessageElement.cloneNode(true);
+  bodyElement.insertAdjacentElement('beforeend', successMessage);
 
   const onEscapeRemoveSuccessMessage = () => {
     if (isEscape) {
@@ -30,9 +30,9 @@ const createSuccessfullySentMessage = () => {
 };
 
 const createErrorSentMessage = () => {
-  const errorMessage = templateErrorMessage.cloneNode(true);
+  const errorMessage = templateErrorMessageElement.cloneNode(true);
   const errorButton = errorMessage.querySelector('.error__button');
-  body.insertAdjacentElement('beforeend', errorMessage);
+  bodyElement.insertAdjacentElement('beforeend', errorMessage);
 
   const onClickRemoveErrorMessage = () => {
     errorMessage.remove();
@@ -54,7 +54,7 @@ const showPushMessage = () => {
   const pushMessage = document.createElement('div');
   pushMessage.classList.add('push-message');
   pushMessage.textContent = 'Ошибка загрузки';
-  body.insertAdjacentElement('afterbegin', pushMessage);
+  bodyElement.insertAdjacentElement('afterbegin', pushMessage);
   setTimeout(() => {
     pushMessage.remove();
   }, 3000);

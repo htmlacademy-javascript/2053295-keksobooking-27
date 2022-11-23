@@ -19,28 +19,28 @@ import {
 } from './housing-photo.js';
 import { resetFilters } from './filter.js';
 
-const adForm = document.querySelector('.ad-form');
+const mainFormElement = document.querySelector('.ad-form');
 const adFormElement = document.querySelectorAll('.ad-form__element');
-const mapFilters = document.querySelector('.map__filters');
-const priceField = adForm.querySelector('#price');
-const typeField = adForm.querySelector('#type');
-const roomField = document.querySelector('#room_number');
-const guestField = document.querySelector('#capacity');
-const timeInField = document.querySelector('#timein');
-const timeOutField = document.querySelector('#timeout');
-const resetButton = document.querySelector('.ad-form__reset');
-const addressField = document.querySelector('#address');
-const rangeSlider = document.querySelector('.ad-form__slider');
+const mapFiltersElement = document.querySelector('.map__filters');
+const priceFieldElement = mainFormElement.querySelector('#price');
+const typeFieldElement = mainFormElement.querySelector('#type');
+const roomFieldElement = document.querySelector('#room_number');
+const guestFieldElement = document.querySelector('#capacity');
+const timeInFieldElement = document.querySelector('#timein');
+const timeOutFieldElement = document.querySelector('#timeout');
+const resetButtonElement = document.querySelector('.ad-form__reset');
+const addressFieldElement = document.querySelector('#address');
+const rangeSliderElement = document.querySelector('.ad-form__slider');
 
-let minPriceValue = HouseTypeMinPrice[typeField.value];
+let minPriceValue = HouseTypeMinPrice[typeFieldElement.value];
 
 const setAddressValue = (coordinates) => {
-  addressField.value = `${coordinates.lat.toFixed(5)} ${coordinates.lng.toFixed(5)}`;
+  addressFieldElement.value = `${coordinates.lat.toFixed(5)} ${coordinates.lng.toFixed(5)}`;
 };
 
 const renderSlider = () => {
-  if (rangeSlider) {
-    noUiSlider.create(rangeSlider, {
+  if (rangeSliderElement) {
+    noUiSlider.create(rangeSliderElement, {
       start: [0],
       connect: false,
       step: 1,
@@ -50,12 +50,12 @@ const renderSlider = () => {
       }
     });
   }
-  rangeSlider.noUiSlider.on('update', (values, handle) => {
-    priceField.value = Math.round(values, handle);
+  rangeSliderElement.noUiSlider.on('update', (values, handle) => {
+    priceFieldElement.value = Math.round(values, handle);
   });
 };
 
-const pristine = new Pristine(adForm, {
+const pristine = new Pristine(mainFormElement, {
   classTo: 'ad-form__element',
   errorClass: 'ad-form__element--invalid',
   successClass: 'ad-form__element--valid',
@@ -64,10 +64,10 @@ const pristine = new Pristine(adForm, {
   errorTextClass: 'form__error'
 });
 
-const onTypeFieldChange = (evt) => {
-  priceField.placeholder = HouseTypeMinPrice[evt.target.value];
+const onTypeFieldElementChange = (evt) => {
+  priceFieldElement.placeholder = HouseTypeMinPrice[evt.target.value];
   minPriceValue = HouseTypeMinPrice[evt.target.value];
-  pristine.validate(priceField);
+  pristine.validate(priceFieldElement);
 
 };
 
@@ -75,7 +75,7 @@ const onFormSubmit = (evt) => {
   evt.preventDefault();
   const isValid = pristine.validate();
   if (isValid) {
-    const formData = new FormData(adForm);
+    const formData = new FormData(mainFormElement);
     sendResource(formData);
   }
 };
@@ -84,58 +84,58 @@ const validatePrice = (value) => value >= minPriceValue;
 
 const getPriceErrorMessage = () => `Минимальное значение ${minPriceValue}`;
 
-pristine.addValidator(priceField, validatePrice, getPriceErrorMessage);
+pristine.addValidator(priceFieldElement, validatePrice, getPriceErrorMessage);
 
-const onRoomFieldChange = () => {
+const onRoomFieldElementChange = () => {
 
-  const selectGuestFieldValue = () => {
-    if (guestField.selectedIndex === 3) {
-      guestField.selectedIndex = 0;
+  const selectGuestFieldElementValue = () => {
+    if (guestFieldElement.selectedIndex === 3) {
+      guestFieldElement.selectedIndex = 0;
     }
-    if (guestField.selectedIndex === 0) {
-      guestField.selectedIndex = 1;
+    if (guestFieldElement.selectedIndex === 0) {
+      guestFieldElement.selectedIndex = 1;
     }
   };
 
-  guestField.querySelectorAll('option').forEach((e) => {
+  guestFieldElement.querySelectorAll('option').forEach((e) => {
     e.style.display = 'inline-block';
   });
 
   let HiddenGuestFields;
 
-  if (roomField.selectedIndex === 0) {
-    selectGuestFieldValue();
-    guestField[2].selected = true;
+  if (roomFieldElement.selectedIndex === 0) {
+    selectGuestFieldElementValue();
+    guestFieldElement[2].selected = true;
     HiddenGuestFields = NumberRooms.forOneRoom;
-  } else if (roomField.selectedIndex === 1) {
-    selectGuestFieldValue();
+  } else if (roomFieldElement.selectedIndex === 1) {
+    selectGuestFieldElementValue();
     HiddenGuestFields = NumberRooms.forTwoRoom;
-  } else if (roomField.selectedIndex === 2) {
-    selectGuestFieldValue();
+  } else if (roomFieldElement.selectedIndex === 2) {
+    selectGuestFieldElementValue();
     HiddenGuestFields = NumberRooms.forThreeRoom;
-  } else if (roomField.selectedIndex === 3) {
-    guestField[roomField.selectedIndex].selected = true;
+  } else if (roomFieldElement.selectedIndex === 3) {
+    guestFieldElement[roomFieldElement.selectedIndex].selected = true;
     HiddenGuestFields = NumberRooms.forHundredRoom;
   }
 
   HiddenGuestFields.map((i) => {
-    guestField[i].style.display = 'none';
+    guestFieldElement[i].style.display = 'none';
   });
 };
 
-const onTimeInFieldChange = () => {
-  timeOutField[timeInField.selectedIndex].selected = true;
+const onTimeInFieldElementChange = () => {
+  timeOutFieldElement[timeInFieldElement.selectedIndex].selected = true;
 };
 
-const onTimeOutFieldChange = () => {
-  timeInField[timeOutField.selectedIndex].selected = true;
+const onTimeOutFieldElementChange = () => {
+  timeInFieldElement[timeOutFieldElement.selectedIndex].selected = true;
 };
 
 const resetData = () => {
-  adForm.reset();
+  mainFormElement.reset();
 
   returnToDefaultLocation();
-  addressField.value = `${TOKYO_LAT} ${TOKYO_LNG}`;
+  addressFieldElement.value = `${TOKYO_LAT} ${TOKYO_LNG}`;
   avatarRemove();
   photoRemove();
   pristine.reset();
@@ -148,49 +148,48 @@ const resetFormData = (evt) => {
 };
 
 const activateResetButtonRerender = (offers) => {
-  resetButton.addEventListener('click', () => renderSimilarAds(offers));
+  resetButtonElement.addEventListener('click', () => renderSimilarAds(offers));
 };
 
 const activateFormSubmitRerender = (offers) => {
-  adForm.addEventListener('submit', () => renderSimilarAds(offers));
+  mainFormElement.addEventListener('submit', () => renderSimilarAds(offers));
 };
 
 const makeInactive = () => {
-  adForm.classList.add('ad-form--disabled');
-  mapFilters.classList.add('map__filters--disabled');
+  mainFormElement.classList.add('ad-form--disabled');
+  mapFiltersElement.classList.add('map__filters--disabled');
 
   adFormElement.forEach((fieldset) => {
     fieldset.disabled = true;
   });
 
-  typeField.removeEventListener('change', onTypeFieldChange);
-  roomField.removeEventListener('change', onRoomFieldChange);
-  timeInField.removeEventListener('change', onTimeInFieldChange);
-  timeOutField.removeEventListener('change', onTimeOutFieldChange);
-  adForm.removeEventListener('submit', onFormSubmit);
-  resetButton.addEventListener('click', resetFormData);
+  typeFieldElement.removeEventListener('change', onTypeFieldElementChange);
+  roomFieldElement.removeEventListener('change', onRoomFieldElementChange);
+  timeInFieldElement.removeEventListener('change', onTimeInFieldElementChange);
+  timeOutFieldElement.removeEventListener('change', onTimeOutFieldElementChange);
+  mainFormElement.removeEventListener('submit', onFormSubmit);
+  resetButtonElement.addEventListener('click', resetFormData);
 };
 
 const makeActive = () => {
-  adForm.classList.remove('ad-form--disabled');
-  mapFilters.classList.remove('map__filters--disabled');
-  addressField.value = `${TOKYO_LAT} ${TOKYO_LNG}`;
+  mainFormElement.classList.remove('ad-form--disabled');
+  mapFiltersElement.classList.remove('map__filters--disabled');
+  addressFieldElement.value = `${TOKYO_LAT} ${TOKYO_LNG}`;
   adFormElement.forEach((fieldset) => {
     fieldset.disabled = false;
   });
   renderSlider();
-  onRoomFieldChange();
-  rangeSlider.noUiSlider.set(minPriceValue);
-  typeField.addEventListener('change', onTypeFieldChange);
-  roomField.addEventListener('change', onRoomFieldChange);
-  timeInField.addEventListener('change', onTimeInFieldChange);
-  timeOutField.addEventListener('change', onTimeOutFieldChange);
-  adForm.addEventListener('submit', onFormSubmit);
-  resetButton.addEventListener('click', resetFormData);
+  onRoomFieldElementChange();
+  rangeSliderElement.noUiSlider.set(minPriceValue);
+  typeFieldElement.addEventListener('change', onTypeFieldElementChange);
+  roomFieldElement.addEventListener('change', onRoomFieldElementChange);
+  timeInFieldElement.addEventListener('change', onTimeInFieldElementChange);
+  timeOutFieldElement.addEventListener('change', onTimeOutFieldElementChange);
+  mainFormElement.addEventListener('submit', onFormSubmit);
+  resetButtonElement.addEventListener('click', resetFormData);
 };
 
 export {
-  resetButton,
   makeInactive,
   makeActive,
   setAddressValue,
@@ -198,6 +197,6 @@ export {
   resetData,
   activateResetButtonRerender,
   activateFormSubmitRerender,
-  onRoomFieldChange,
+  onRoomFieldElementChange,
   resetFormData,
 };
