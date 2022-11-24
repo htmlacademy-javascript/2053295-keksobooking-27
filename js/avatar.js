@@ -1,29 +1,33 @@
-const FILE_TYPES = [
-  'jpg',
-  'jpeg',
-  'png',
-];
+import {
+  DEFAULT_AVATAR,
+  FILE_TYPES,
+} from './constants.js';
+import {
+  showErrorFilePushMessage,
+} from './messages.js';
 
-const fileChooser = document.querySelector('#avatar');
-const preview = document.querySelector('.ad-form-header__preview').querySelector('img');
-const adFormField = document.querySelector('.ad-form__field');
+const fileChooserElement = document.querySelector('#avatar');
+const previewElement = document.querySelector('.ad-form-header__preview').querySelector('img');
+const formElement = document.querySelector('.ad-form__field');
 
-const createAvatar = () => {
+const onFormElementChange = () => {
 
-  const file = fileChooser.files[0];
+  const file = fileChooserElement.files[0];
   const fileName = file.name.toLowerCase();
   const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
 
   if (matches) {
-    preview.src = URL.createObjectURL(file);
+    previewElement.src = URL.createObjectURL(file);
+  } else {
+    showErrorFilePushMessage();
   }
 };
-adFormField.addEventListener('change', createAvatar);
+formElement.addEventListener('change', onFormElementChange);
 
-const avatarRemove = () => {
-  preview.src = 'img/muffin-grey.svg';
+const removeAvatar = () => {
+  previewElement.src = DEFAULT_AVATAR;
 };
 
 export {
-  avatarRemove,
+  removeAvatar,
 };

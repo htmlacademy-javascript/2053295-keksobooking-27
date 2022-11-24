@@ -1,4 +1,8 @@
 import {
+  GET_ADDRESS_DEFOLT,
+  SET_ADDRESS_DEFOLT,
+} from './constants.js';
+import {
   createSuccessfullySentMessage,
   createErrorSentMessage,
   showPushMessage,
@@ -8,7 +12,7 @@ import {
 } from './form.js';
 
 const getResourse = async (onSuccess) => {
-  fetch('https://27.javascript.pages.academy/keksobooking/data')
+  fetch(GET_ADDRESS_DEFOLT)
     .then((response) => response.json())
     .then((data) => {
       onSuccess(data);
@@ -19,7 +23,7 @@ const getResourse = async (onSuccess) => {
 };
 
 const sendResource = (data) => {
-  fetch('https://27.javascript.pages.academy/keksobooking', {
+  fetch(SET_ADDRESS_DEFOLT, {
     method: 'POST',
     type: 'multipart/form-data',
     body: data,

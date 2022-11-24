@@ -2,23 +2,22 @@ import {
   HouseType
 } from './constants.js';
 
-const templateFragment = document.querySelector('#card').content.querySelector('.popup');
-const templatePhotos = document.querySelector('#housing-photos').content.querySelector('.popup__photo');
+const templateFragmentElement = document.querySelector('#card').content.querySelector('.popup');
+const templatePhotosElement = document.querySelector('#housing-photos').content.querySelector('.popup__photo');
 
 const renderSimilarCard = (item) => {
-
-  const cardItem = templateFragment.cloneNode(true);
-  const featuresContainer = cardItem.querySelector('.popup__features');
-  const featuresList = featuresContainer.querySelectorAll('.popup__feature');
-  const photoContainer = cardItem.querySelector('.popup__photos');
-  const cardItemAvatar = cardItem.querySelector('.popup__avatar');
-  const cardItemTitle = cardItem.querySelector('.popup__title');
-  const cardItemAddress = cardItem.querySelector('.popup__text--address');
-  const cardItemPrice = cardItem.querySelector('.popup__text--price');
-  const cardItemType = cardItem.querySelector('.popup__type');
-  const cardItemCapacity = cardItem.querySelector('.popup__text--capacity');
-  const cardItemTime = cardItem.querySelector('.popup__text--time');
-  const cardItemDescription = cardItem.querySelector('.popup__description');
+  const cardElement = templateFragmentElement.cloneNode(true);
+  const featuresContainerElement = cardElement.querySelector('.popup__features');
+  const featuresListElement = featuresContainerElement.querySelectorAll('.popup__feature');
+  const photoContainerElement = cardElement.querySelector('.popup__photos');
+  const avatarElement = cardElement.querySelector('.popup__avatar');
+  const titleElement = cardElement.querySelector('.popup__title');
+  const addressElement = cardElement.querySelector('.popup__text--address');
+  const priceElement = cardElement.querySelector('.popup__text--price');
+  const typeElement = cardElement.querySelector('.popup__type');
+  const capacityElement = cardElement.querySelector('.popup__text--capacity');
+  const timeElement = cardElement.querySelector('.popup__text--time');
+  const descriptionElement = cardElement.querySelector('.popup__description');
 
   const { avatar, } = item.author;
   const { lat, lng, } = item.location;
@@ -41,61 +40,61 @@ const renderSimilarCard = (item) => {
   }
 
   if (!avatar) {
-    cardItemAvatar.remove();
+    avatarElement.remove();
   } else {
-    cardItemAvatar.src = avatar;
+    avatarElement.src = avatar;
   }
 
   if (!title) {
-    cardItemTitle.remove();
+    titleElement.remove();
   } else {
-    cardItemTitle.textContent = title;
+    titleElement.textContent = title;
   }
 
   if (!(lat || lng)) {
-    cardItemAddress.remove();
+    addressElement.remove();
   } else {
-    cardItemAddress.textContent = address;
+    addressElement.textContent = address;
   }
 
   if (!price) {
-    cardItemPrice.remove();
+    priceElement.remove();
   } else {
-    cardItemPrice.textContent = `${price} ₽/ночь`;
+    priceElement.textContent = `${price} ₽/ночь`;
   }
 
   if (!type) {
-    cardItemType.remove();
+    typeElement.remove();
   } else {
-    cardItemType.textContent = HouseType[type];
+    typeElement.textContent = HouseType[type];
   }
 
   if (!(rooms || guests)) {
-    cardItemCapacity.remove();
+    capacityElement.remove();
   } else {
-    cardItemCapacity.textContent = `${rooms} ${roomsWord} для ${guests} ${guestsWord}`;
+    capacityElement.textContent = `${rooms} ${roomsWord} для ${guests} ${guestsWord}`;
   }
 
   if (!(checkin && checkout)) {
-    cardItemTime.textContent = 'Заезд после --:-- , выезд до --:--';
+    timeElement.textContent = 'Заезд после --:-- , выезд до --:--';
   } else if (!checkin) {
-    cardItemTime.textContent = `Выезд до ${checkout}`;
+    timeElement.textContent = `Выезд до ${checkout}`;
   } else if (!checkout) {
-    cardItemTime.textContent = `Заезд после ${checkin}`;
+    timeElement.textContent = `Заезд после ${checkin}`;
   } else {
-    cardItemTime.textContent = `Заезд после ${checkin} , выезд до ${checkout}`;
+    timeElement.textContent = `Заезд после ${checkin} , выезд до ${checkout}`;
   }
 
   if (!description) {
-    cardItemDescription.remove();
+    descriptionElement.remove();
   } else {
-    cardItemDescription.textContent = description;
+    descriptionElement.textContent = description;
   }
 
   if (!(features && features.length)) {
-    featuresContainer.remove();
+    featuresContainerElement.remove();
   } else {
-    featuresList.forEach((featuresItem) => {
+    featuresListElement.forEach((featuresItem) => {
       const receivedFeatures = (featuresItems) =>
         featuresItem.classList.contains(`popup__feature--${featuresItems}`);
       if (!features.some(receivedFeatures)) {
@@ -105,17 +104,17 @@ const renderSimilarCard = (item) => {
   }
 
   if (!(photos && photos.length)) {
-    photoContainer.remove();
+    photoContainerElement.remove();
   } else {
     photos.forEach((photo) => {
       if (photo) {
-        const photoItem = templatePhotos.cloneNode(true);
+        const photoItem = templatePhotosElement.cloneNode(true);
         photoItem.src = photo;
-        photoContainer.appendChild(photoItem);
+        photoContainerElement.appendChild(photoItem);
       }
     });
   }
-  return cardItem;
+  return cardElement;
 };
 
 export {

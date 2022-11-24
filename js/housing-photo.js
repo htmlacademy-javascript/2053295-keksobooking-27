@@ -1,16 +1,17 @@
-const FILE_TYPES = [
-  'jpg',
-  'jpeg',
-  'png',
-];
+import {
+  FILE_TYPES,
+} from './constants.js';
+import {
+  showErrorFilePushMessage,
+} from './messages.js';
 
-const fileChooser = document.querySelector('#images');
-const preview = document.querySelector('.ad-form__photo');
-const uploadPhoto = document.querySelector('.ad-form__input');
+const fileChooserElement = document.querySelector('#images');
+const previewElement = document.querySelector('.ad-form__photo');
+const uploadPhotoElement = document.querySelector('.ad-form__input');
 
-const createHousingPhoto = () => {
+const onUploadPhotoElementClick = () => {
 
-  const file = fileChooser.files[0];
+  const file = fileChooserElement.files[0];
   const fileName = file.name.toLowerCase();
   const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
 
@@ -19,19 +20,21 @@ const createHousingPhoto = () => {
     image.classList.add('ad-form__image');
     image.src = URL.createObjectURL(file);
     image.width = 70;
-    preview.append(image);
+    previewElement.append(image);
+  } else {
+    showErrorFilePushMessage();
   }
 };
 
-uploadPhoto.addEventListener('change', createHousingPhoto);
+uploadPhotoElement.addEventListener('change', onUploadPhotoElementClick);
 
-const photoRemove = () => {
-  const currentImages = preview.querySelectorAll('.ad-form__image');
+const removePhoto = () => {
+  const currentImages = previewElement.querySelectorAll('.ad-form__image');
   currentImages.forEach((e) => {
     e.remove();
   });
 };
 
 export {
-  photoRemove,
+  removePhoto,
 };
