@@ -1,12 +1,10 @@
 import {
-  PREVIEW_DEFOLT,
+  DEFAULT_AVATAR,
+  FILE_TYPES,
 } from './constants.js';
-
-const FILE_TYPES = [
-  'jpg',
-  'jpeg',
-  'png',
-];
+import {
+  showErrorFilePushMessage,
+} from './messages.js';
 
 const fileChooserElement = document.querySelector('#avatar');
 const previewElement = document.querySelector('.ad-form-header__preview').querySelector('img');
@@ -20,12 +18,14 @@ const onFormElementChange = () => {
 
   if (matches) {
     previewElement.src = URL.createObjectURL(file);
+  } else {
+    showErrorFilePushMessage();
   }
 };
 formElement.addEventListener('change', onFormElementChange);
 
 const removeAvatar = () => {
-  previewElement.src = PREVIEW_DEFOLT;
+  previewElement.src = DEFAULT_AVATAR;
 };
 
 export {

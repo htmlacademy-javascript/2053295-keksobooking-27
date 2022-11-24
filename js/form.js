@@ -68,7 +68,6 @@ const onTypeElementChange = (evt) => {
   priceElement.placeholder = HouseTypeMinPrice[evt.target.value];
   minPriceValue = HouseTypeMinPrice[evt.target.value];
   pristine.validate(priceElement);
-
 };
 
 const onMainFormElementSubmit = (evt) => {

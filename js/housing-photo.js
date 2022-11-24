@@ -1,8 +1,9 @@
-const FILE_TYPES = [
-  'jpg',
-  'jpeg',
-  'png',
-];
+import {
+  FILE_TYPES,
+} from './constants.js';
+import {
+  showErrorFilePushMessage,
+} from './messages.js';
 
 const fileChooserElement = document.querySelector('#images');
 const previewElement = document.querySelector('.ad-form__photo');
@@ -20,6 +21,8 @@ const onUploadPhotoElementClick = () => {
     image.src = URL.createObjectURL(file);
     image.width = 70;
     previewElement.append(image);
+  } else {
+    showErrorFilePushMessage();
   }
 };
 

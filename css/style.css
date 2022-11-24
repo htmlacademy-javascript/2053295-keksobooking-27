@@ -1067,3 +1067,20 @@ fieldset {
   font-size: 40px;
   z-index: 1000;
 }
+
+/**
+ * Сообщение о выборе файла не верного расширения
+ */
+
+.push-message-error-file {
+position: absolute;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, 100%);
+  text-align: center;
+  padding: 8%;
+  color: red;
+  background-color: yellow;
+  font-size: 45px;
+  z-index: 1000;
+}

@@ -50,16 +50,26 @@ const createErrorSentMessage = () => {
 const showPushMessage = () => {
   const pushMessage = document.createElement('div');
   pushMessage.classList.add('push-message');
-  pushMessage.textContent = 'Ошибка загрузки';
+  pushMessage.textContent = 'Ошибка загрузки \n Попробуйте ещё';
   bodyElement.insertAdjacentElement('afterbegin', pushMessage);
   setTimeout(() => {
     pushMessage.remove();
   }, 3000);
+};
 
+const showErrorFilePushMessage = () => {
+  const pushMessage = document.createElement('div');
+  pushMessage.classList.add('push-message-error-file');
+  pushMessage.textContent = 'Выбран не подходящий файл \n Выберите файл jpg, jpeg или png';
+  bodyElement.insertAdjacentElement('afterbegin', pushMessage);
+  setTimeout(() => {
+    pushMessage.remove();
+  }, 3000);
 };
 
 export {
   createSuccessfullySentMessage,
   createErrorSentMessage,
   showPushMessage,
+  showErrorFilePushMessage,
 };
